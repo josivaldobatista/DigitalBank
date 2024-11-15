@@ -1,0 +1,30 @@
+DigitalBankGateway/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── br.com.digitalbankgateway/
+│   │   │   │   ├── core
+│   │   │   │   │   ├── dataprovider
+│   │   │   │   │   ├── domain
+│   │   │   │   │   └── usecase
+│   │   │   │   ├── dataprovider
+│   │   │   │   │   ├── client
+│   │   │   │   │   │   ├── mapper
+│   │   │   │   │   │   └── response
+│   │   │   │   │   ├── repository
+│   │   │   │   │   │   ├── entity
+│   │   │   │   │   │   └── mapper
+│   │   │   │   ├── entrypoint
+│   │   │   │   │   ├── controller
+│   │   │   │   │   │   ├── mapper
+│   │   │   │   │   │   ├── request
+│   │   │   │   │   │   └── response
+├── test/
+│   ├── java/
+│   │   ├── br.com.digitalbankgateway/
+│   │   │   ├── core
+│   │   │   ├── dataprovider
+│   │   │   ├── entrypoint
+└── resources
+    ├── application.properties
+    └── outros arquivos de configuração (e.g., logback.xml)
