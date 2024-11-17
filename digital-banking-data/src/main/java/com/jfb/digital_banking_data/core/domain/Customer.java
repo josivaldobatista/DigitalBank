@@ -8,14 +8,6 @@ public class Customer {
     private String birthDate;
     private String cpfCnpj;
 
-    public Customer(String id, String name, String email, String birthDate, String cpfCnpj) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.cpfCnpj = cpfCnpj;
-    }
-
     public Customer() {
     }
 
