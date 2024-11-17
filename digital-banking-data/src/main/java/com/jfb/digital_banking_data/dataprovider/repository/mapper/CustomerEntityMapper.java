@@ -1,0 +1,16 @@
+package com.jfb.digital_banking_data.dataprovider.repository.mapper;
+
+import com.jfb.digital_banking_data.core.domain.Customer;
+import com.jfb.digital_banking_data.dataprovider.repository.entity.CustomerEntity;
+
+public class CustomerEntityMapper {
+
+    public static CustomerEntity toEntity(Customer customer) {
+        CustomerEntity entity = new CustomerEntity();
+        entity.setName(customer.getName());
+        entity.setEmail(customer.getEmail());
+        entity.setBirthDate(customer.getBirthDate());
+        entity.setCpfCnpj(customer.getCpfCnpj());
+        return entity;
+    }
+}
