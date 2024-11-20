@@ -1,5 +1,6 @@
 package com.jfb.digital_banking_data.dataprovider.repository.entity;
 
+import com.jfb.digital_banking_data.core.domain.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,8 @@ public class CustomerEntity {
     private String birthDate;
     @Field("cpf_cnpj")
     private String cpfCnpj;
+    @Field("status")
+    private Status status;
 }
 
 

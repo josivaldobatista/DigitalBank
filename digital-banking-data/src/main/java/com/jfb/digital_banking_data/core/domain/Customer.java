@@ -7,6 +7,16 @@ public class Customer {
     private String email;
     private String birthDate;
     private String cpfCnpj;
+    private Status status;
+
+    public Customer(String id, String name, String email, String birthDate, String cpfCnpj, Status status) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.cpfCnpj = cpfCnpj;
+        this.status = status;
+    }
 
     public Customer() {
     }
@@ -49,6 +59,14 @@ public class Customer {
 
     public void setCpfCnpj(String cpfCnpj) {
         this.cpfCnpj = cpfCnpj;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
 

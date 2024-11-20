@@ -10,13 +10,15 @@ public class Account {
     private String branch;
     private BigDecimal balance;
     private UUID customerId;
+    private Status status;
 
-    public Account(UUID id, String accountNumber, String branch, BigDecimal balance, UUID customerId) {
+    public Account(UUID id, String accountNumber, String branch, BigDecimal balance, UUID customerId, Status status) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.branch = branch;
         this.balance = balance;
         this.customerId = customerId;
+        this.status = status;
     }
 
     public UUID getId() {
@@ -57,6 +59,14 @@ public class Account {
 
     public void setCustomerId(UUID customerId) {
         this.customerId = customerId;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
 
