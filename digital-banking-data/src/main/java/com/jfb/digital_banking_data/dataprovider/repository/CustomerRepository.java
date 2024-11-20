@@ -4,6 +4,7 @@ import com.jfb.digital_banking_data.dataprovider.repository.entity.CustomerEntit
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
