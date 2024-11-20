@@ -12,11 +12,9 @@ import java.util.List;
 public class FindAllCustomerUseCaseImpl implements FindAllCustomerUseCase {
 
     private final FindCustomer findCustomer;
-    private final CustomerMapper mapper;
 
-    public FindAllCustomerUseCaseImpl(FindCustomer findCustomer, CustomerMapper mapper) {
+    public FindAllCustomerUseCaseImpl(FindCustomer findCustomer) {
         this.findCustomer = findCustomer;
-        this.mapper = mapper;
     }
 
     @Override
