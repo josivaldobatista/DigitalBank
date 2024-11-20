@@ -15,6 +15,7 @@ public class CustomerMapper {
         customer.setEmail(request.email());
         customer.setBirthDate(request.birthDate());
         customer.setCpfCnpj(request.cpfCnpj());
+        customer.setStatus(request.status());
 
         return customer;
     }
@@ -24,7 +25,8 @@ public class CustomerMapper {
                 customer.getName(),
                 customer.getEmail(),
                 customer.getBirthDate(),
-                customer.getCpfCnpj()
+                customer.getCpfCnpj(),
+                customer.getStatus()
         );
     }
 }

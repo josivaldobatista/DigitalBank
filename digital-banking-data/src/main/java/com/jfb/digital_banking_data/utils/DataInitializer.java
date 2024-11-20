@@ -1,6 +1,7 @@
 package com.jfb.digital_banking_data.utils;
 
 import com.jfb.digital_banking_data.core.domain.Customer;
+import com.jfb.digital_banking_data.core.domain.Status;
 import com.jfb.digital_banking_data.core.usecase.FindAllCustomerUseCase;
 import com.jfb.digital_banking_data.core.usecase.InsertCustomerUseCase;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +30,7 @@ public class DataInitializer implements CommandLineRunner {
             customer.setEmail("johndoe@example.com");
             customer.setBirthDate("1980-01-01");
             customer.setCpfCnpj("12345678901");
+            customer.setStatus(Status.ATIVO);
             insertCustomerUseCase.execute(customer);
         }
     }
