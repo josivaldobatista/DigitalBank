@@ -2,6 +2,7 @@ package com.jfb.digital_banking_data.core.usecase.impl;
 
 import com.jfb.digital_banking_data.core.dataprovider.FindCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
+import com.jfb.digital_banking_data.core.exception.ResourceNotFoundException;
 import com.jfb.digital_banking_data.core.usecase.FindCustomerByIdUseCase;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ public class FindCustomerByIdUseCaseImpl implements FindCustomerByIdUseCase {
 
     @Override
     public Customer findById(String id) {
-        return findCustomer.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+        return findCustomer.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Customer with ID " + id + " not found"));
     }
 }
