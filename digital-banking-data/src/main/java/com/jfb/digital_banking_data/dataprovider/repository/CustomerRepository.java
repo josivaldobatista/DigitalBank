@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CustomerRepository extends MongoRepository<CustomerEntity, UUID> {
+public interface CustomerRepository extends MongoRepository<CustomerEntity, String> {
 
     Optional<CustomerEntity> findByEmail(String email);
     boolean existsByEmail(String email);
