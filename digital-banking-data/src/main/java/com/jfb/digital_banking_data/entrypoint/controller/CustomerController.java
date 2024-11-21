@@ -1,10 +1,7 @@
 package com.jfb.digital_banking_data.entrypoint.controller;
 
 import com.jfb.digital_banking_data.core.domain.Customer;
-import com.jfb.digital_banking_data.core.usecase.FindAllCustomerUseCase;
-import com.jfb.digital_banking_data.core.usecase.FindCustomerByIdUseCase;
-import com.jfb.digital_banking_data.core.usecase.InsertCustomerUseCase;
-import com.jfb.digital_banking_data.core.usecase.UpdateCustomerUseCase;
+import com.jfb.digital_banking_data.core.usecase.*;
 import com.jfb.digital_banking_data.entrypoint.controller.mapper.CustomerMapper;
 import com.jfb.digital_banking_data.entrypoint.controller.request.CustomerRequest;
 import com.jfb.digital_banking_data.entrypoint.controller.response.CustomerResponse;
@@ -23,16 +20,18 @@ public class CustomerController {
     private final FindAllCustomerUseCase findAllCustomerUseCase;
     private final FindCustomerByIdUseCase findCustomerByIdUseCase;
     private final UpdateCustomerUseCase updateCustomerUseCase;
+    private final DeleteCustomerUseCase deleteCustomerUseCase;
     private final CustomerMapper mapper;
 
     public CustomerController(
             InsertCustomerUseCase insertCustomerUseCase,
-            FindAllCustomerUseCase findAllCustomerUseCase, FindCustomerByIdUseCase findCustomerByIdUseCase, UpdateCustomerUseCase updateCustomerUseCase,
+            FindAllCustomerUseCase findAllCustomerUseCase, FindCustomerByIdUseCase findCustomerByIdUseCase, UpdateCustomerUseCase updateCustomerUseCase, DeleteCustomerUseCase deleteCustomerUseCase,
             CustomerMapper mapper) {
         this.insertCustomerUseCase = insertCustomerUseCase;
         this.findAllCustomerUseCase = findAllCustomerUseCase;
         this.findCustomerByIdUseCase = findCustomerByIdUseCase;
         this.updateCustomerUseCase = updateCustomerUseCase;
+        this.deleteCustomerUseCase = deleteCustomerUseCase;
         this.mapper = mapper;
     }
 
@@ -62,6 +61,12 @@ public class CustomerController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@RequestBody Customer customer, @PathVariable String id) {
         updateCustomerUseCase.execute(customer, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> logicalDelete(@PathVariable("id") String id) {
+        deleteCustomerUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }
 
