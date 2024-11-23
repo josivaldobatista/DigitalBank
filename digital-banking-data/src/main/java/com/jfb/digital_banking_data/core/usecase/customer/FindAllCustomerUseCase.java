@@ -1,4 +1,4 @@
-package com.jfb.digital_banking_data.core.usecase;
+package com.jfb.digital_banking_data.core.usecase.customer;
 
 import com.jfb.digital_banking_data.core.domain.Customer;
 

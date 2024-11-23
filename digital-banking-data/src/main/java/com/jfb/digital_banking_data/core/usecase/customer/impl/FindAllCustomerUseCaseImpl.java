@@ -1,9 +1,8 @@
-package com.jfb.digital_banking_data.core.usecase.impl;
+package com.jfb.digital_banking_data.core.usecase.customer.impl;
 
-import com.jfb.digital_banking_data.core.dataprovider.FindCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.FindCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
-import com.jfb.digital_banking_data.core.usecase.FindAllCustomerUseCase;
-import com.jfb.digital_banking_data.entrypoint.controller.mapper.CustomerMapper;
+import com.jfb.digital_banking_data.core.usecase.customer.FindAllCustomerUseCase;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

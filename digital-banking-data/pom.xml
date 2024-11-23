@@ -45,6 +45,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
+
+		<!-- eJMask -->
+		<dependency>
+			<groupId>com.ebay.ejmask</groupId>
+			<artifactId>ejmask-core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

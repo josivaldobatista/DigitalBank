@@ -1,7 +1,7 @@
-package com.jfb.digital_banking_data.dataprovider;
+package com.jfb.digital_banking_data.dataprovider.customer;
 
-import com.jfb.digital_banking_data.core.dataprovider.InsertCustomer;
-import com.jfb.digital_banking_data.core.dataprovider.UpdateCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.InsertCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.UpdateCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.dataprovider.repository.CustomerRepository;
 import org.springframework.stereotype.Component;

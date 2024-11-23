@@ -1,4 +1,4 @@
-package com.jfb.digital_banking_data.core.dataprovider;
+package com.jfb.digital_banking_data.core.dataprovider.customer;
 
 public interface DeleteCustomer {
 

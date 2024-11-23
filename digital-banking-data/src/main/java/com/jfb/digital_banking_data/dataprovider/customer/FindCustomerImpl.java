@@ -1,6 +1,6 @@
-package com.jfb.digital_banking_data.dataprovider;
+package com.jfb.digital_banking_data.dataprovider.customer;
 
-import com.jfb.digital_banking_data.core.dataprovider.FindCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.FindCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.dataprovider.repository.CustomerRepository;
 import com.jfb.digital_banking_data.dataprovider.repository.entity.CustomerEntity;

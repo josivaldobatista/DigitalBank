@@ -1,13 +1,11 @@
-package com.jfb.digital_banking_data.core.usecase.impl;
+package com.jfb.digital_banking_data.core.usecase.customer.impl;
 
-import com.jfb.digital_banking_data.core.dataprovider.FindCustomer;
-import com.jfb.digital_banking_data.core.dataprovider.UpdateCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.FindCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.UpdateCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.core.exception.ResourceNotFoundException;
-import com.jfb.digital_banking_data.core.usecase.UpdateCustomerUseCase;
+import com.jfb.digital_banking_data.core.usecase.customer.UpdateCustomerUseCase;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class UpdateCustomerUseCaseImpl implements UpdateCustomerUseCase {

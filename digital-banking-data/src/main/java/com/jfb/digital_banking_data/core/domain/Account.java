@@ -5,27 +5,32 @@ import java.util.UUID;
 
 public class Account {
 
-    private UUID id;
+    private String id;
     private String accountNumber;
     private String branch;
     private BigDecimal balance;
-    private UUID customerId;
+    private String customerId;
     private Status status;
+    private String cpfCnpj;
 
-    public Account(UUID id, String accountNumber, String branch, BigDecimal balance, UUID customerId, Status status) {
+    public Account() {
+    }
+
+    public Account(String id, String accountNumber, String branch, BigDecimal balance, String customerId, Status status, String cpfCnpj) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.branch = branch;
         this.balance = balance;
         this.customerId = customerId;
         this.status = status;
+        this.cpfCnpj = cpfCnpj;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,11 +58,11 @@ public class Account {
         this.balance = balance;
     }
 
-    public UUID getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(UUID customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
@@ -67,6 +72,14 @@ public class Account {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
     }
 }
 

@@ -1,6 +1,6 @@
-package com.jfb.digital_banking_data.dataprovider;
+package com.jfb.digital_banking_data.dataprovider.customer;
 
-import com.jfb.digital_banking_data.core.dataprovider.InsertCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.InsertCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.dataprovider.repository.CustomerRepository;
 import com.jfb.digital_banking_data.dataprovider.repository.mapper.CustomerEntityMapper;
@@ -25,6 +25,9 @@ public class InsertCustomerImpl implements InsertCustomer {
         if (customerEntity.getId() == null) {
             customerEntity.setId(UUID.randomUUID().toString());
         }
+
+
+
         repository.save(customerEntity);
     }
 }
