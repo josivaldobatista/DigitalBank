@@ -3,17 +3,14 @@ package com.jfb.digital_banking_data.dataprovider.customer;
 import com.jfb.digital_banking_data.core.dataprovider.customer.InsertCustomer;
 import com.jfb.digital_banking_data.core.dataprovider.customer.UpdateCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
-import com.jfb.digital_banking_data.dataprovider.repository.CustomerRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateCustomerImpl implements UpdateCustomer {
 
-    private final CustomerRepository repository;
     private final InsertCustomer insertCustomer;
 
-    public UpdateCustomerImpl(CustomerRepository repository, InsertCustomer insertCustomer) {
-        this.repository = repository;
+    public UpdateCustomerImpl(InsertCustomer insertCustomer) {
         this.insertCustomer = insertCustomer;
     }
 

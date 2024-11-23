@@ -36,7 +36,7 @@ public class InsertAccountImpl implements InsertAccount {
             var accountEntity = mapToAccountEntity(account);
             log.debug("Entidade de conta mapeada: {}", accountEntity);
             linkCustomerToAccount(accountEntity, account.getCpfCnpj());
-            log.debug("Cliente vinculado à conta: {}", accountEntity.getCustomer_id());
+            log.debug("Cliente vinculado à conta: {}", accountEntity.getCustomerId());
 
             repository.save(accountEntity);
             log.info("Conta salva com sucesso: {}", accountEntity.getId());
@@ -66,7 +66,7 @@ public class InsertAccountImpl implements InsertAccount {
     private void linkCustomerToAccount(AccountEntity accountEntity, String cpfCnpj) {
         customerRepository.findByCpfCnpj(cpfCnpj)
                 .ifPresentOrElse(
-                        customerEntity -> accountEntity.setCustomer_id(customerEntity.getId()),
+                        customerEntity -> accountEntity.setCustomerId(customerEntity.getId()),
                         () -> {
                             throw new ResourceNotFoundException(
                                     String.format("Customer with CPF/CNPJ %s not found", cpfCnpj)

@@ -26,7 +26,7 @@ public class AccountEntity {
     @Field("balance")
     private BigDecimal balance;
     @Field("customerId")
-    private String customer_id;
+    private String customerId;
     @Field("status")
     private Status status;
     @Field("cpf_cnpj")

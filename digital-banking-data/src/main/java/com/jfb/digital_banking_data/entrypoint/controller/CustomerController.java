@@ -55,7 +55,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerResponse> findById(@PathVariable final String id) {
+    public ResponseEntity<CustomerResponse> findById(@PathVariable("id") final String id) {
         Customer customer = findCustomerByIdUseCase.findById(id);
         var customerResponse = mapper.toCustomerResponse(customer);
         return ResponseEntity.ok().body(customerResponse);
