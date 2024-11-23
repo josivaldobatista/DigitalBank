@@ -1,8 +1,8 @@
-package com.jfb.digital_banking_data.core.usecase.impl;
+package com.jfb.digital_banking_data.core.usecase.customer.impl;
 
-import com.jfb.digital_banking_data.core.dataprovider.InsertCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.InsertCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
-import com.jfb.digital_banking_data.core.usecase.InsertCustomerUseCase;
+import com.jfb.digital_banking_data.core.usecase.customer.InsertCustomerUseCase;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,9 +1,9 @@
-package com.jfb.digital_banking_data.core.usecase.impl;
+package com.jfb.digital_banking_data.core.usecase.customer.impl;
 
-import com.jfb.digital_banking_data.core.dataprovider.FindCustomer;
+import com.jfb.digital_banking_data.core.dataprovider.customer.FindCustomer;
 import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.core.exception.ResourceNotFoundException;
-import com.jfb.digital_banking_data.core.usecase.FindCustomerByIdUseCase;
+import com.jfb.digital_banking_data.core.usecase.customer.FindCustomerByIdUseCase;
 import org.springframework.stereotype.Component;
 
 @Component

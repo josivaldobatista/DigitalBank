@@ -1,4 +1,4 @@
-package com.jfb.digital_banking_data.core.dataprovider;
+package com.jfb.digital_banking_data.core.dataprovider.customer;
 
 import com.jfb.digital_banking_data.core.domain.Customer;
 

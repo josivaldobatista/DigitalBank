@@ -1,7 +1,7 @@
 package com.jfb.digital_banking_data.entrypoint.controller;
 
 import com.jfb.digital_banking_data.core.domain.Customer;
-import com.jfb.digital_banking_data.core.usecase.*;
+import com.jfb.digital_banking_data.core.usecase.customer.*;
 import com.jfb.digital_banking_data.entrypoint.controller.mapper.CustomerMapper;
 import com.jfb.digital_banking_data.entrypoint.controller.request.CustomerRequest;
 import com.jfb.digital_banking_data.entrypoint.controller.response.CustomerResponse;
@@ -25,7 +25,10 @@ public class CustomerController {
 
     public CustomerController(
             InsertCustomerUseCase insertCustomerUseCase,
-            FindAllCustomerUseCase findAllCustomerUseCase, FindCustomerByIdUseCase findCustomerByIdUseCase, UpdateCustomerUseCase updateCustomerUseCase, DeleteCustomerUseCase deleteCustomerUseCase,
+            FindAllCustomerUseCase findAllCustomerUseCase,
+            FindCustomerByIdUseCase findCustomerByIdUseCase,
+            UpdateCustomerUseCase updateCustomerUseCase,
+            DeleteCustomerUseCase deleteCustomerUseCase,
             CustomerMapper mapper) {
         this.insertCustomerUseCase = insertCustomerUseCase;
         this.findAllCustomerUseCase = findAllCustomerUseCase;

@@ -1,4 +1,4 @@
-package com.jfb.digital_banking_data.core.usecase;
+package com.jfb.digital_banking_data.core.usecase.customer;
 
 public interface DeleteCustomerUseCase {
 

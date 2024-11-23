@@ -2,8 +2,8 @@ package com.jfb.digital_banking_data.utils;
 
 import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.core.domain.Status;
-import com.jfb.digital_banking_data.core.usecase.FindAllCustomerUseCase;
-import com.jfb.digital_banking_data.core.usecase.InsertCustomerUseCase;
+import com.jfb.digital_banking_data.core.usecase.customer.FindAllCustomerUseCase;
+import com.jfb.digital_banking_data.core.usecase.customer.InsertCustomerUseCase;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class DataInitializer implements CommandLineRunner {
             customer.setName("John Doe");
             customer.setEmail("johndoe@example.com");
             customer.setBirthDate("1980-01-01");
-            customer.setCpfCnpj("12345678901");
+            customer.setCpfCnpj("72473107076");
             customer.setStatus(Status.ATIVO);
             insertCustomerUseCase.execute(customer);
         }

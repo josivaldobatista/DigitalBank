@@ -14,6 +14,7 @@ import java.util.UUID;
 public interface CustomerRepository extends MongoRepository<CustomerEntity, String> {
 
     Optional<CustomerEntity> findByEmail(String email);
+    Optional<CustomerEntity> findByCpfCnpj(String cpfCnpj);
     Optional<Customer> findByIdAndStatusNot(String id, Status status);
     List<Customer> findAllByStatusNot(Status status);
     boolean existsByEmail(String email);
