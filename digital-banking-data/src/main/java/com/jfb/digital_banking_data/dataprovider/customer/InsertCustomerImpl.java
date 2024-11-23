@@ -25,9 +25,6 @@ public class InsertCustomerImpl implements InsertCustomer {
         if (customerEntity.getId() == null) {
             customerEntity.setId(UUID.randomUUID().toString());
         }
-
-
-
         repository.save(customerEntity);
     }
 }

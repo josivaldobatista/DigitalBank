@@ -8,14 +8,25 @@ import org.springframework.stereotype.Component;
 public class AccountEntityMapper {
 
     public AccountEntity toEntity(Account account) {
-        AccountEntity entity = new AccountEntity();
+        var entity = new AccountEntity();
         entity.setId(account.getId());
-        entity.setCustomer_id(account.getCustomerId());
+        entity.setCustomerId(account.getCustomerId());
         entity.setBranch(account.getBranch());
         entity.setStatus(account.getStatus());
         entity.setAccountNumber(account.getAccountNumber());
         entity.setBalance(account.getBalance());
         entity.setCpfCnpj(account.getCpfCnpj());
         return entity;
+    }
+
+    public Account toAccount(AccountEntity entity) {
+        var account = new Account();
+        account.setCustomerId(entity.getCustomerId());
+        account.setAccountNumber(entity.getAccountNumber());
+        account.setCpfCnpj(entity.getCpfCnpj());
+        account.setBranch(entity.getBranch());
+        account.setStatus(entity.getStatus());
+        account.setBalance(entity.getBalance());
+        return account;
     }
 }
