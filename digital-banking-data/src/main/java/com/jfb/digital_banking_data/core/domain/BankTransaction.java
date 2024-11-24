@@ -1,18 +1,18 @@
 package com.jfb.digital_banking_data.core.domain;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 public class BankTransaction {
 
-    private UUID id;
-    private UUID sourceAccountId;
-    private UUID destinationAccountId; // Opcional para depósitos
+    private String id;
+    private String sourceAccountId;
+    private String destinationAccountId; // Opcional para depósitos
     private BigDecimal amount;
-    private String transactionDate;
-    private String transactionType; // "DEPOSIT", "TRANSFER"
+    private LocalDateTime transactionDate;
+    private TransactionType transactionType; // "DEPOSIT", "TRANSFER"
 
-    public BankTransaction(UUID id, UUID sourceAccountId, UUID destinationAccountId, BigDecimal amount, String transactionDate, String transactionType) {
+    public BankTransaction(String id, String sourceAccountId, String destinationAccountId, BigDecimal amount, LocalDateTime transactionDate, TransactionType transactionType) {
         this.id = id;
         this.sourceAccountId = sourceAccountId;
         this.destinationAccountId = destinationAccountId;
@@ -21,27 +21,27 @@ public class BankTransaction {
         this.transactionType = transactionType;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public UUID getSourceAccountId() {
+    public String getSourceAccountId() {
         return sourceAccountId;
     }
 
-    public void setSourceAccountId(UUID sourceAccountId) {
+    public void setSourceAccountId(String sourceAccountId) {
         this.sourceAccountId = sourceAccountId;
     }
 
-    public UUID getDestinationAccountId() {
+    public String getDestinationAccountId() {
         return destinationAccountId;
     }
 
-    public void setDestinationAccountId(UUID destinationAccountId) {
+    public void setDestinationAccountId(String destinationAccountId) {
         this.destinationAccountId = destinationAccountId;
     }
 
@@ -53,19 +53,19 @@ public class BankTransaction {
         this.amount = amount;
     }
 
-    public String getTransactionDate() {
+    public LocalDateTime getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(String transactionDate) {
+    public void setTransactionDate(LocalDateTime transactionDate) {
         this.transactionDate = transactionDate;
     }
 
-    public String getTransactionType() {
+    public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
 }
