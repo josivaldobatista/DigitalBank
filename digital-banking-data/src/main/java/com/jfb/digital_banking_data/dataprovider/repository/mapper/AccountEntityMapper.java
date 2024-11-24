@@ -19,8 +19,9 @@ public class AccountEntityMapper {
         return entity;
     }
 
-    public Account toAccount(AccountEntity entity) {
+    public Account toDomain(AccountEntity entity) {
         var account = new Account();
+        account.setId(entity.getId());
         account.setCustomerId(entity.getCustomerId());
         account.setAccountNumber(entity.getAccountNumber());
         account.setCpfCnpj(entity.getCpfCnpj());

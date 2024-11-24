@@ -26,13 +26,13 @@ public class FindAccountImpl implements FindAccount {
     public List<Account> findAll() {
         List<AccountEntity> accountsEntity = repository.findAll();
         return accountsEntity.stream()
-                .map(mapper::toAccount)
+                .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Optional<Account> findById(String id) {
         Optional<AccountEntity> accountEntity = repository.findById(id);
-        return accountEntity.map(mapper::toAccount);
+        return accountEntity.map(mapper::toDomain);
     }
 }
