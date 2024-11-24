@@ -39,7 +39,7 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> insert(@RequestBody AccountRequest request) {
-        var account = mapper.toAccount(request);
+        var account = mapper.toDomain(request);
         insertAccount.insert(account);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -48,7 +48,7 @@ public class AccountController {
     public ResponseEntity<List<AccountResponse>> findAll() {
         List<Account> accounts = findAllAccountUseCase.execute();
         List<AccountResponse> accountsResponse = accounts.stream()
-                .map(mapper::toAccountResponse)
+                .map(mapper::toResponse)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(accountsResponse);
@@ -57,7 +57,7 @@ public class AccountController {
     @GetMapping("/{id}")
     public ResponseEntity<AccountResponse> findById(@PathVariable("id") final String id) {
         Account account = findAccountByIdUseCase.execute(id);
-        AccountResponse response = mapper.toAccountResponse(account);
+        AccountResponse response = mapper.toResponse(account);
         return ResponseEntity.ok().body(response);
     }
 

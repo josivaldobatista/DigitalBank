@@ -8,4 +8,5 @@ import java.math.BigDecimal;
 public interface TransactionService {
 
     void recordTransaction(String accountId, BigDecimal amount, TransactionType transactionType);
+    void recordTransaction(BankTransaction bankTransaction);
 }

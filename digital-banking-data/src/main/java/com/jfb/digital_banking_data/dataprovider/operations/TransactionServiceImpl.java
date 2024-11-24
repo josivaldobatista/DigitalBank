@@ -34,4 +34,9 @@ public class TransactionServiceImpl implements TransactionService {
         );
         repository.save(mapper.toEntity(transaction));
     }
+
+    @Override
+    public void recordTransaction(BankTransaction bankTransaction) {
+        repository.save(mapper.toEntity(bankTransaction));
+    }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountMapper {
 
-    public Account toAccount(AccountRequest request) {
+    public Account toDomain(AccountRequest request) {
         var account = new Account();
         account.setId(request.id());
         account.setCustomerId(request.customerId());
@@ -20,7 +20,7 @@ public class AccountMapper {
         return account;
     }
 
-    public AccountResponse toAccountResponse(Account account) {
+    public AccountResponse toResponse(Account account) {
         return new AccountResponse(
                 account.getCustomerId(),
                 account.getAccountNumber(),
