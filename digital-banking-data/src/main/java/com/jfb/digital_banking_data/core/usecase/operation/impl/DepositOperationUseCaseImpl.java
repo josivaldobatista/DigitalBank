@@ -22,6 +22,6 @@ public class DepositOperationUseCaseImpl implements DepositOperationUseCase {
     @Override
     public void execute(String accountId, BigDecimal amount) {
         depositOperation.deposit(accountId, amount);
-        transactionService.recordTransaction(accountId, amount, TransactionType.WITHDRAW);
+        transactionService.recordTransaction(accountId, amount, TransactionType.DEPOSIT);
     }
 }
