@@ -1,16 +1,14 @@
-package com.jfb.digital_banking_data.core.domain;
+package com.jfb.digital_banking_gateway.domain.model;
 
 public class Customer {
 
-    private String id;
     private String name;
     private String email;
     private String birthDate;
     private String cpfCnpj;
     private Status status;
 
-    public Customer(String id, String name, String email, String birthDate, String cpfCnpj, Status status) {
-        this.id = id;
+    public Customer(String name, String email, String birthDate, String cpfCnpj, Status status) {
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;
@@ -19,14 +17,6 @@ public class Customer {
     }
 
     public Customer() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -67,18 +57,6 @@ public class Customer {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", cpfCnpj='" + cpfCnpj + '\'' +
-                ", status=" + status +
-                '}';
     }
 }
 

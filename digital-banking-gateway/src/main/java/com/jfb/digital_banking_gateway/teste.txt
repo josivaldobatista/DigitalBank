@@ -1,0 +1,30 @@
+com/jfb/digital_banking_gateway
+├── domain
+│   ├── model
+│   │   ├── Customer.java
+│   │   └── Account.java
+│   ├── service
+│   │   ├── CustomerService.java
+│   │   └── AccountService.java
+│   └── port
+│       ├── in
+│       │   ├── CustomerInputPort.java
+│       │   └── AccountInputPort.java
+│       └── out
+│           ├── CustomerOutputPort.java
+│           └── AccountOutputPort.java
+├── application
+│   └── usecase
+│       ├── InsertCustomerUseCase.java
+│       └── TransferFundsUseCase.java
+├── adapter
+│   ├── controller
+│   │   ├── CustomerController.java
+│   │   └── AccountController.java
+│   ├── repository
+│   │   ├── CustomerRepository.java
+│   │   └── AccountRepository.java
+│   └── message
+│       ├── KafkaProducerConfig.java
+│       ├── KafkaProducerService.java
+│       └── KafkaConsumerService.java

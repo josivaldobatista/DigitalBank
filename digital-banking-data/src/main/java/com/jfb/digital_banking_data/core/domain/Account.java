@@ -1,7 +1,6 @@
 package com.jfb.digital_banking_data.core.domain;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public class Account {
 
