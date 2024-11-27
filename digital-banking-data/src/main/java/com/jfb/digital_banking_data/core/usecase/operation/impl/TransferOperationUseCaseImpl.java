@@ -33,7 +33,8 @@ public class TransferOperationUseCaseImpl implements TransferOperationUseCase {
                 UUID.randomUUID().toString(),
                 fromAccountId,
                 toAccountId,
-                amount, LocalDateTime.now(),
+                amount,
+                LocalDateTime.now(),
                 TransactionType.TRANSFER
         );
         transactionService.recordTransaction(bankTransaction);

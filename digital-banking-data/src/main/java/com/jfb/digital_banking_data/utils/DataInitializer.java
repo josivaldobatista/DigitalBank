@@ -3,9 +3,7 @@ package com.jfb.digital_banking_data.utils;
 import com.jfb.digital_banking_data.core.domain.Account;
 import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.core.domain.Status;
-import com.jfb.digital_banking_data.core.usecase.account.FindAllAccountUseCase;
 import com.jfb.digital_banking_data.core.usecase.account.InsertAccountUseCase;
-import com.jfb.digital_banking_data.core.usecase.customer.FindAllCustomerUseCase;
 import com.jfb.digital_banking_data.core.usecase.customer.InsertCustomerUseCase;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -18,15 +16,11 @@ import java.math.BigDecimal;
 public class DataInitializer implements CommandLineRunner {
 
     private final InsertCustomerUseCase insertCustomerUseCase;
-    private final FindAllCustomerUseCase findAllCustomerUseCase;
     private final InsertAccountUseCase insertAccountUseCase;
-    private final FindAllAccountUseCase findAllAccountUseCase;
 
-    public DataInitializer(InsertCustomerUseCase insertCustomerUseCase, FindAllCustomerUseCase findAllCustomerUseCase, InsertAccountUseCase insertAccountUseCase, FindAllAccountUseCase findAllAccountUseCase) {
+    public DataInitializer(InsertCustomerUseCase insertCustomerUseCase, InsertAccountUseCase insertAccountUseCase) {
         this.insertCustomerUseCase = insertCustomerUseCase;
-        this.findAllCustomerUseCase = findAllCustomerUseCase;
         this.insertAccountUseCase = insertAccountUseCase;
-        this.findAllAccountUseCase = findAllAccountUseCase;
     }
 
     @Override
