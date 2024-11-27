@@ -1,8 +1,8 @@
-package com.jfb.digital_banking_gateway.adapter.dto;
+package com.jfb.digital_banking_gateway.adapter.request;
 
 import com.jfb.digital_banking_gateway.domain.model.Status;
 
-public record CustomerDTO(
+public record CustomerRequest(
         String name,
         String email,
         String birthDate,
