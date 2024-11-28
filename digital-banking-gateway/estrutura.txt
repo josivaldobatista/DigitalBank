@@ -1,0 +1,31 @@
+com/jfb/digital_banking_gateway
+|-- core
+|   |-- domain
+|   |   |-- entities
+|   |   |   |-- Customer.java
+|   |-- usecases
+|   |   |-- dto
+|   |   |   |-- CustomerDTO.java
+|   |   |-- interactors
+|   |   |   |-- InsertCustomerUseCaseImpl.java
+|   |   |-- ports
+|   |       |-- InsertCustomerUseCase.java
+|   |       |-- CustomerRepository.java
+|-- adapters
+|   |-- controllers
+|   |   |-- CustomerController.java
+|   |   |-- mapper
+|   |   |   |-- CustomerMapper.java
+|   |   |-- request
+|   |   |   |-- CustomerRequest.java
+|   |-- messaging
+|   |   |-- KafkaProducerService.java
+|   |-- repositories
+|   |   |-- CustomerRepositoryImpl.java
+|-- config
+|   |-- KafkaProducerConfig.java
+|-- tests
+|   |-- unit
+|   |   |-- controllers
+|   |       |-- CustomerControllerTest.java
+|-- README.md

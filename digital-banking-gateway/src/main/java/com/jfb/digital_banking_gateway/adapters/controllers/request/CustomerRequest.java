@@ -1,6 +1,6 @@
-package com.jfb.digital_banking_data.entrypoint.controller.request;
+package com.jfb.digital_banking_gateway.adapters.controllers.request;
 
-import com.jfb.digital_banking_data.core.domain.Status;
+import com.jfb.digital_banking_gateway.core.domain.models.Status;
 
 import java.time.LocalDate;
 
@@ -10,5 +10,5 @@ public record CustomerRequest(
         LocalDate birthDate,
         String cpfCnpj,
         Status status
-) {
-}
+) {}
+

@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +24,7 @@ public class CustomerEntity {
     @Field("email")
     private String email;
     @Field("birth_date")
-    private String birthDate;
+    private LocalDate birthDate;
     @Field("cpf_cnpj")
     private String cpfCnpj;
     @Field("status")

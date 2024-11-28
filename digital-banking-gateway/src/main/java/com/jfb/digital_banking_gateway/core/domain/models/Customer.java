@@ -1,18 +1,21 @@
-package com.jfb.digital_banking_data.core.domain;
+package com.jfb.digital_banking_gateway.core.domain.models;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class Customer {
+public class Customer implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    private String id;
     private String name;
     private String email;
     private LocalDate birthDate;
     private String cpfCnpj;
     private Status status;
 
-    public Customer(String id, String name, String email, LocalDate birthDate, String cpfCnpj, Status status) {
-        this.id = id;
+    public Customer(String name, String email, LocalDate birthDate, String cpfCnpj, Status status) {
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;
@@ -21,14 +24,6 @@ public class Customer {
     }
 
     public Customer() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -72,15 +67,14 @@ public class Customer {
     }
 
     @Override
-    public String toString() {
-        return "Customer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", cpfCnpj='" + cpfCnpj + '\'' +
-                ", status=" + status +
-                '}';
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(birthDate, customer.birthDate) && Objects.equals(cpfCnpj, customer.cpfCnpj) && status == customer.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email, birthDate, cpfCnpj, status);
     }
 }
-
