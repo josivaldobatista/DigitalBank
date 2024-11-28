@@ -1,4 +1,4 @@
-package com.jfb.digital_banking_gateway.domain.model;
+package com.jfb.digital_banking_gateway.core.domain.models;
 
 public enum Status {
     PENDENTE,

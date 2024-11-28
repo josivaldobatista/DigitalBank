@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Component
 @Profile("local")
@@ -30,7 +31,7 @@ public class DataInitializer implements CommandLineRunner {
         customer1.setId("f4028655-2ccf-4493-8808-48c2ddf7cd62");
         customer1.setName("John Doe");
         customer1.setEmail("johndoe@example.com");
-        customer1.setBirthDate("1980-01-01");
+        customer1.setBirthDate(LocalDate.parse("1980-01-01"));
         customer1.setCpfCnpj("72473107076");
         customer1.setStatus(Status.ATIVO);
         insertCustomerUseCase.execute(customer1);
@@ -49,7 +50,7 @@ public class DataInitializer implements CommandLineRunner {
         customer2.setId("9aa355aa-aa67-46fa-a732-d777efc9e996");
         customer2.setName("Maria Mariana");
         customer2.setEmail("maria@example.com");
-        customer2.setBirthDate("1984-01-01");
+        customer2.setBirthDate(LocalDate.parse("1984-01-01"));
         customer2.setCpfCnpj("22730143092");
         customer2.setStatus(Status.ATIVO);
         insertCustomerUseCase.execute(customer2);
