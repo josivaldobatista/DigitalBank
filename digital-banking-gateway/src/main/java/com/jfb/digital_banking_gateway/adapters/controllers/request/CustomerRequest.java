@@ -5,6 +5,7 @@ import com.jfb.digital_banking_gateway.core.domain.models.Status;
 import java.time.LocalDate;
 
 public record CustomerRequest(
+        String id,
         String name,
         String email,
         LocalDate birthDate,
