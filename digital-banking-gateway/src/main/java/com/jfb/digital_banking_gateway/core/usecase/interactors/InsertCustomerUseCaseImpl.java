@@ -6,6 +6,8 @@ import com.jfb.digital_banking_gateway.core.domain.models.Customer;
 import com.jfb.digital_banking_gateway.core.usecase.InsertCustomerUseCase;
 import org.springframework.stereotype.Service;
 
+import static com.jfb.digital_banking_gateway.utils.Constantes.INSERT_CUSTOMER_KAFKA_TOPIC;
+
 @Service
 public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
 
@@ -17,7 +19,7 @@ public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
 
     @Override
     public void execute(Customer customer) {
-        kafkaProducerService.sendMessage("insert-customer-topic", customer);
+        kafkaProducerService.sendMessage(INSERT_CUSTOMER_KAFKA_TOPIC, customer);
     }
 }
 
