@@ -21,7 +21,8 @@ public class DeleteCustomerUseCaseImpl implements DeleteCustomerUseCase {
 
     @Override
     public void execute(String id) {
-        Customer existingCustomer = findCustomer.findById(id).orElseThrow(
+        String cleanedId = id.replace("\"", "");
+        Customer existingCustomer = findCustomer.findById(cleanedId).orElseThrow(
                 () -> new ResourceNotFoundException("Customer não encontrado, ID: " + id));
 
         existingCustomer.setStatus(Status.INATIVO);
