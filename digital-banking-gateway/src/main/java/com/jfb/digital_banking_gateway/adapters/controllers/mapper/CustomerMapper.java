@@ -9,6 +9,7 @@ public class CustomerMapper {
 
     public Customer toModel(CustomerRequest request) {
         Customer customer = new Customer();
+        customer.setId(request.id());
         customer.setName(request.name());
         customer.setEmail(request.email());
         customer.setBirthDate(request.birthDate());
