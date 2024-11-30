@@ -25,6 +25,9 @@ public class Account implements Serializable {
         this.cpfCnpj = cpfCnpj;
     }
 
+    public Account() {
+    }
+
     public String getAccountNumber() {
         return accountNumber;
     }
