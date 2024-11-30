@@ -26,7 +26,10 @@ public class KafkaCustomerConsumerService {
         this.updateCustomerUseCase = updateCustomerUseCase;
     }
 
-    @KafkaListener(topics = INSERT_CUSTOMER_KAFKA_TOPIC, groupId = KAFKA_GROUP_ID_OBJECTS, containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(
+            topics = INSERT_CUSTOMER_KAFKA_TOPIC,
+            groupId = KAFKA_GROUP_ID_OBJECTS,
+            containerFactory = "kafkaListenerContainerFactory")
     public void consumeInsertCustomer(Customer customer) {
         try {
             logger.info("Mensagem recebida: {}", customer);
@@ -37,12 +40,24 @@ public class KafkaCustomerConsumerService {
         }
     }
 
-    @KafkaListener(topics = DELETE_CUSTOMER_KAFKA_TOPIC, groupId = KAFKA_GROUP_ID_STRINGS, containerFactory = "stringKafkaListenerContainerFactory")
+    @KafkaListener(
+            topics = DELETE_CUSTOMER_KAFKA_TOPIC,
+            groupId = KAFKA_GROUP_ID_STRINGS,
+            containerFactory = "stringKafkaListenerContainerFactory")
     public void consumerDeleteCustomer(String customerId) {
-        deleteCustomerUseCase.execute(customerId);
+        try {
+            logger.info("Mensagem recebida para exclusão lógica pelo Customer ID: {}", customerId);
+            deleteCustomerUseCase.execute(customerId);
+            logger.info("Cliente INATIVADO, customer ID: {}", customerId);
+        } catch (Exception ex) {
+            logger.error("Erro ao processar mensagem: {}", ex.getMessage(), ex);
+        }
     }
 
-    @KafkaListener(topics = UPDATE_CUSTOMER_KAFKA_TOPIC, groupId = KAFKA_GROUP_ID_OBJECTS, containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(
+            topics = UPDATE_CUSTOMER_KAFKA_TOPIC,
+            groupId = KAFKA_GROUP_ID_OBJECTS,
+            containerFactory = "kafkaListenerContainerFactory")
     public void consumeUpdateCustomer(Customer customer) {
         try {
             logger.info("Mensagem recebida para atualização: {}", customer);
