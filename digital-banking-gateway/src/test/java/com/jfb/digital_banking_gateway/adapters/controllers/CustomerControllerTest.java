@@ -2,11 +2,13 @@ package com.jfb.digital_banking_gateway.adapters.controllers;
 
 import com.jfb.digital_banking_gateway.adapters.controllers.mapper.CustomerMapper;
 import com.jfb.digital_banking_gateway.adapters.controllers.request.CustomerRequest;
+import com.jfb.digital_banking_gateway.adapters.controllers.response.CustomerResponse;
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
 import com.jfb.digital_banking_gateway.core.domain.models.Status;
-import com.jfb.digital_banking_gateway.core.usecase.DeleteCustomerUseCase;
-import com.jfb.digital_banking_gateway.core.usecase.InsertCustomerUseCase;
-import com.jfb.digital_banking_gateway.core.usecase.UpdateCustomerUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.customer.DeleteCustomerUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.customer.FindAllCustomerUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.customer.InsertCustomerUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.customer.UpdateCustomerUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,6 +37,9 @@ class CustomerControllerTest implements AutoCloseable {
     @Mock
     private UpdateCustomerUseCase updateCustomerUseCase;
 
+    @Mock
+    private FindAllCustomerUseCase findAllCustomerUseCase;
+
     @InjectMocks
     private CustomerController customerController;
 
@@ -40,9 +47,9 @@ class CustomerControllerTest implements AutoCloseable {
 
     @BeforeEach
     void setUp() {
-        closeable =  MockitoAnnotations.openMocks(this);
+        closeable = MockitoAnnotations.openMocks(this);
         var customerMapper = new CustomerMapper();
-        customerController = new CustomerController(insertCustomerUseCase, deleteCustomerUseCase, updateCustomerUseCase, customerMapper);
+        customerController = new CustomerController(insertCustomerUseCase, deleteCustomerUseCase, updateCustomerUseCase, findAllCustomerUseCase, customerMapper);
     }
 
     @Test
@@ -88,6 +95,29 @@ class CustomerControllerTest implements AutoCloseable {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(updateCustomerUseCase, times(1)).execute(any(Customer.class));
+    }
+
+    @Test
+    void testFindAllCustomers() {
+        Customer customer = new Customer(
+                "123",
+                "John Doe",
+                "john.doe@example.com",
+                LocalDate.of(1990, 1, 1),
+                "12345678900",
+                Status.ATIVO
+        );
+
+        when(findAllCustomerUseCase.findAllCustomers()).thenReturn(List.of(customer));
+
+        var customerMapper = new CustomerMapper();
+        List<CustomerResponse> customerResponses = List.of(customerMapper.toResponse(customer));
+
+        ResponseEntity<List<CustomerResponse>> response = customerController.findAll();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(customerResponses, response.getBody());
+        verify(findAllCustomerUseCase, times(1)).findAllCustomers();
     }
 
     @Override
