@@ -1,4 +1,4 @@
-package com.jfb.digital_banking_gateway.core.usecase;
+package com.jfb.digital_banking_gateway.core.usecase.account;
 
 public interface DeleteAccountUseCase {
 

@@ -2,8 +2,8 @@ package com.jfb.digital_banking_gateway.adapters.controllers;
 
 import com.jfb.digital_banking_gateway.adapters.controllers.mapper.AccountMapper;
 import com.jfb.digital_banking_gateway.adapters.controllers.request.AccountRequest;
-import com.jfb.digital_banking_gateway.core.usecase.DeleteAccountUseCase;
-import com.jfb.digital_banking_gateway.core.usecase.InsertAccountUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.account.DeleteAccountUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.account.InsertAccountUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

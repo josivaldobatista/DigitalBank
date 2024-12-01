@@ -1,6 +1,7 @@
 package com.jfb.digital_banking_gateway.adapters.controllers.mapper;
 
 import com.jfb.digital_banking_gateway.adapters.controllers.request.CustomerRequest;
+import com.jfb.digital_banking_gateway.adapters.controllers.response.CustomerResponse;
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
 import org.springframework.stereotype.Component;
 
@@ -8,14 +9,23 @@ import org.springframework.stereotype.Component;
 public class CustomerMapper {
 
     public Customer toModel(CustomerRequest request) {
-        Customer customer = new Customer();
-        customer.setId(request.id());
-        customer.setName(request.name());
-        customer.setEmail(request.email());
-        customer.setBirthDate(request.birthDate());
-        customer.setCpfCnpj(request.cpfCnpj());
-        customer.setStatus(request.status());
-        return customer;
+        return new Customer(
+                request.id(),
+                request.name(),
+                request.email(),
+                request.birthDate(),
+                request.cpfCnpj(),
+                request.status()
+        );
+    }
+
+    public CustomerResponse toResponse(Customer customer) {
+        return new CustomerResponse(
+                customer.getName(),
+                customer.getEmail(),
+                customer.getBirthDate(),
+                customer.getCpfCnpj(),
+                customer.getStatus()
+        );
     }
 }
-

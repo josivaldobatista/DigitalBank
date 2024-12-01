@@ -1,7 +1,7 @@
-package com.jfb.digital_banking_gateway.core.usecase.interactors;
+package com.jfb.digital_banking_gateway.core.usecase.customer.interactors;
 
 import com.jfb.digital_banking_gateway.adapters.messaging.KafkaProducerService;
-import com.jfb.digital_banking_gateway.core.usecase.DeleteCustomerUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.customer.DeleteCustomerUseCase;
 import org.springframework.stereotype.Service;
 
 import static com.jfb.digital_banking_gateway.utils.Constantes.DELETE_CUSTOMER_KAFKA_TOPIC;

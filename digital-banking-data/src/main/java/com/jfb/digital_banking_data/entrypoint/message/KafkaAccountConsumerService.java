@@ -9,7 +9,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import static com.jfb.digital_banking_data.utils.Constantes.*;
-import static com.jfb.digital_banking_data.utils.Constantes.KAFKA_GROUP_ID_STRINGS;
 
 @Service
 public class KafkaAccountConsumerService {

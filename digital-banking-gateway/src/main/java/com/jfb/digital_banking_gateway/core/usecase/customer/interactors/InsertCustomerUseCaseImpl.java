@@ -1,9 +1,9 @@
-package com.jfb.digital_banking_gateway.core.usecase.interactors;
+package com.jfb.digital_banking_gateway.core.usecase.customer.interactors;
 
 
 import com.jfb.digital_banking_gateway.adapters.messaging.KafkaProducerService;
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
-import com.jfb.digital_banking_gateway.core.usecase.InsertCustomerUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.customer.InsertCustomerUseCase;
 import org.springframework.stereotype.Service;
 
 import static com.jfb.digital_banking_gateway.utils.Constantes.INSERT_CUSTOMER_KAFKA_TOPIC;
