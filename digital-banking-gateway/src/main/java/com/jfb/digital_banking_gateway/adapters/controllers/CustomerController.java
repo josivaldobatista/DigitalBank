@@ -6,8 +6,10 @@ import com.jfb.digital_banking_gateway.adapters.controllers.response.CustomerRes
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
 import com.jfb.digital_banking_gateway.core.usecase.customer.DeleteCustomerUseCase;
 import com.jfb.digital_banking_gateway.core.usecase.customer.FindAllCustomerUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.customer.FindCustomerByIdUseCase;
 import com.jfb.digital_banking_gateway.core.usecase.customer.InsertCustomerUseCase;
 import com.jfb.digital_banking_gateway.core.usecase.customer.UpdateCustomerUseCase;
+import com.jfb.digital_banking_gateway.core.usecase.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,7 @@ public class CustomerController {
     private final DeleteCustomerUseCase deleteCustomerUseCase;
     private final UpdateCustomerUseCase updateCustomerUseCase;
     private final FindAllCustomerUseCase findAllCustomerUseCase;
+    private final FindCustomerByIdUseCase findCustomerByIdUseCase;
     private final CustomerMapper mapper;
 
     public CustomerController(
@@ -30,11 +33,13 @@ public class CustomerController {
             DeleteCustomerUseCase deleteCustomerUseCase,
             UpdateCustomerUseCase updateCustomerUseCase,
             FindAllCustomerUseCase findAllCustomerUseCase,
+            FindCustomerByIdUseCase findCustomerByIdUseCase,
             CustomerMapper mapper) {
         this.insertCustomerUseCase = insertCustomerUseCase;
         this.deleteCustomerUseCase = deleteCustomerUseCase;
         this.updateCustomerUseCase = updateCustomerUseCase;
         this.findAllCustomerUseCase = findAllCustomerUseCase;
+        this.findCustomerByIdUseCase = findCustomerByIdUseCase;
         this.mapper = mapper;
     }
 
@@ -65,6 +70,14 @@ public class CustomerController {
         List<CustomerResponse> response = customers.stream()
                 .map(mapper::toResponse)
                 .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponse> findById(@PathVariable("id") String id) {
+        Customer customer = findCustomerByIdUseCase.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
+        CustomerResponse response = mapper.toResponse(customer);
         return ResponseEntity.ok(response);
     }
 }
