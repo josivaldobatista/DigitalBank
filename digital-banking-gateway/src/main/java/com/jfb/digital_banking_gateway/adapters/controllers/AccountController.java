@@ -10,6 +10,7 @@ import com.jfb.digital_banking_gateway.core.usecase.account.DeleteAccountUseCase
 import com.jfb.digital_banking_gateway.core.usecase.account.FindAccountUseCase;
 import com.jfb.digital_banking_gateway.core.usecase.account.InsertAccountUseCase;
 import com.jfb.digital_banking_gateway.core.usecase.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> insert(@RequestBody AccountRequest request) {
+    public ResponseEntity<HttpStatus> insert(@RequestBody @Valid AccountRequest request) {
         var model = mapper.toModel(request);
         insertAccountUseCase.execute(model);
         return ResponseEntity.status(HttpStatus.CREATED).build();

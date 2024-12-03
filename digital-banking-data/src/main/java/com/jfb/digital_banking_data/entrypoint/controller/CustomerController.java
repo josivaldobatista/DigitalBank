@@ -5,6 +5,7 @@ import com.jfb.digital_banking_data.core.usecase.customer.*;
 import com.jfb.digital_banking_data.entrypoint.controller.mapper.CustomerMapper;
 import com.jfb.digital_banking_data.entrypoint.controller.request.CustomerRequest;
 import com.jfb.digital_banking_data.entrypoint.controller.response.CustomerResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> insert(@RequestBody CustomerRequest customerRequest) {
+    public ResponseEntity<HttpStatus> insert(@RequestBody @Valid CustomerRequest customerRequest) {
         var customer = mapper.toCustomer(customerRequest);
         insertCustomerUseCase.execute(customer);
         return ResponseEntity.status(HttpStatus.CREATED).build();

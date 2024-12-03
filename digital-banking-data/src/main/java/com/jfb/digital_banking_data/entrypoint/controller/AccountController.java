@@ -8,6 +8,7 @@ import com.jfb.digital_banking_data.core.usecase.account.impl.FindAccountByIdUse
 import com.jfb.digital_banking_data.entrypoint.controller.mapper.AccountMapper;
 import com.jfb.digital_banking_data.entrypoint.controller.request.AccountRequest;
 import com.jfb.digital_banking_data.entrypoint.controller.response.AccountResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> insert(@RequestBody AccountRequest request) {
+    public ResponseEntity<HttpStatus> insert(@RequestBody @Valid AccountRequest request) {
         var account = mapper.toDomain(request);
         insertAccount.insert(account);
         return ResponseEntity.status(HttpStatus.CREATED).build();
