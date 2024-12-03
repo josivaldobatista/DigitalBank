@@ -10,6 +10,7 @@ import com.jfb.digital_banking_gateway.core.usecase.customer.FindCustomerByIdUse
 import com.jfb.digital_banking_gateway.core.usecase.customer.InsertCustomerUseCase;
 import com.jfb.digital_banking_gateway.core.usecase.customer.UpdateCustomerUseCase;
 import com.jfb.digital_banking_gateway.core.usecase.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> insert(@RequestBody CustomerRequest customerRequest) {
+    public ResponseEntity<HttpStatus> insert(@RequestBody @Valid CustomerRequest customerRequest) {
         var customer = mapper.toModel(customerRequest);
         insertCustomerUseCase.execute(customer);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -57,7 +58,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@PathVariable("id") String id, @RequestBody CustomerRequest customerRequest) {
+    public ResponseEntity<HttpStatus> update(@PathVariable("id") String id, @Valid @RequestBody CustomerRequest customerRequest) {
         var customer = mapper.toModel(customerRequest);
         customer.setId(id); // Setar o ID do cliente a partir do path variable
         updateCustomerUseCase.execute(customer);
@@ -77,7 +78,6 @@ public class CustomerController {
     public ResponseEntity<CustomerResponse> findById(@PathVariable("id") String id) {
         Customer customer = findCustomerByIdUseCase.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
-        CustomerResponse response = mapper.toResponse(customer);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(mapper.toResponse(customer));
     }
 }

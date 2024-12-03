@@ -1,5 +1,6 @@
 package com.jfb.digital_banking_gateway.dataprovider.client;
 
+import com.jfb.digital_banking_gateway.configs.FeignConfig;
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(name = "customer-service", url = "${digital-banking-data.url}")
+@FeignClient(name = "customer-service", url = "${digital-banking-data.url}", configuration = FeignConfig.class)
 public interface CustomerClient {
 
     @GetMapping("/api/v1/customer")
