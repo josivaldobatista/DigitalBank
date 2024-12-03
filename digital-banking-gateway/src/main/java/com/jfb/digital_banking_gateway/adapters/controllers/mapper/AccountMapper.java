@@ -1,6 +1,7 @@
 package com.jfb.digital_banking_gateway.adapters.controllers.mapper;
 
 import com.jfb.digital_banking_gateway.adapters.controllers.request.AccountRequest;
+import com.jfb.digital_banking_gateway.adapters.controllers.response.AccountResponse;
 import com.jfb.digital_banking_gateway.core.domain.models.Account;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +17,16 @@ public class AccountMapper {
         model.setStatus(request.status());
         model.setCpfCnpj(request.cpfCnpj());
         return model;
+    }
+
+    public AccountResponse toResponse(Account model) {
+        return new AccountResponse(
+             model.getAccountNumber(),
+             model.getBranch(),
+             model.getBalance(),
+             model.getCustomerId(),
+             model.getStatus(),
+             model.getCpfCnpj()
+        );
     }
 }

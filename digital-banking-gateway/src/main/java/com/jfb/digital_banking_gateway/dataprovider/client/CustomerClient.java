@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(name = "digital-banking-data", url = "${digital-banking-data.url}")
+@FeignClient(name = "customer-service", url = "${digital-banking-data.url}")
 public interface CustomerClient {
 
     @GetMapping("/api/v1/customer")
