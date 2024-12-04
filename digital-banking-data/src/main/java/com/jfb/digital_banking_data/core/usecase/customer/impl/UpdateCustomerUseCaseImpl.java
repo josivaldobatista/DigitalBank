@@ -22,14 +22,16 @@ public class UpdateCustomerUseCaseImpl implements UpdateCustomerUseCase {
     public void execute(Customer customer, String id) {
         Customer existingCustomer = findCustomer.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Customer não encontrado, ID: " + id));
+        toModel(customer, existingCustomer);
+        updateCustomer.update(existingCustomer, id);
+    }
 
+    private static void toModel(Customer customer, Customer existingCustomer) {
         existingCustomer.setName(customer.getName());
         existingCustomer.setEmail(customer.getEmail());
-        existingCustomer.setBirthDate(customer.getBirthDate());
-        existingCustomer.setCpfCnpj(customer.getCpfCnpj());
-        existingCustomer.setStatus(customer.getStatus());
-
-        updateCustomer.update(existingCustomer, id);
+        existingCustomer.setBirthDate(existingCustomer.getBirthDate());
+        existingCustomer.setCpfCnpj(existingCustomer.getCpfCnpj());
+        existingCustomer.setStatus(existingCustomer.getStatus());
     }
 
 }

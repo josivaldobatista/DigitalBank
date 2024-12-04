@@ -35,4 +35,10 @@ public class FindCustomerImpl implements FindCustomer {
         var customerEntity = repository.findById(id);
         return customerEntity.map(mapper::toCustomer);
     }
+
+    @Override
+    public Optional<Customer> findByCpfCnpj(String cpfCnpj) {
+        var customerEntity = repository.findByCpfCnpj(cpfCnpj);
+        return customerEntity.map(mapper::toCustomer);
+    }
 }

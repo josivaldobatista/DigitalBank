@@ -20,6 +20,11 @@ public class Customer {
         this.status = status;
     }
 
+    public Customer(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public Customer() {
     }
 

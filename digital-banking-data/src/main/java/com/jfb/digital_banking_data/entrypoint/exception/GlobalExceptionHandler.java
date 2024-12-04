@@ -1,6 +1,7 @@
 package com.jfb.digital_banking_data.entrypoint.exception;
 
 import com.jfb.digital_banking_data.core.exception.InsufficientFundsException;
+import com.jfb.digital_banking_data.core.exception.ObjectAlreadyExistsException;
 import com.jfb.digital_banking_data.core.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,19 @@ public class GlobalExceptionHandler {
         error.setTimestamp(Instant.now());
         error.setStatus(status.value());
         error.setError("Fundos insuficiente.");
+        error.setMessage(ex.getMessage());
+        error.setPath(request.getRequestURI());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(ObjectAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> objectAlreadyExistsException(ObjectAlreadyExistsException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ErrorResponse error = new ErrorResponse();
+        error.setTimestamp(Instant.now());
+        error.setStatus(status.value());
+        error.setError("Conflito de recurso.");
         error.setMessage(ex.getMessage());
         error.setPath(request.getRequestURI());
 

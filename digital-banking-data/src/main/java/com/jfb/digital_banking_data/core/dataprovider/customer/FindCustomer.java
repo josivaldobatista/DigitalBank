@@ -9,4 +9,5 @@ public interface FindCustomer {
 
     List<Customer> findAll();
     Optional<Customer> findById(final String id);
+    Optional<Customer> findByCpfCnpj(final String cpfCnpj);
 }

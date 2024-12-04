@@ -4,6 +4,7 @@ import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.core.usecase.customer.*;
 import com.jfb.digital_banking_data.entrypoint.controller.mapper.CustomerMapper;
 import com.jfb.digital_banking_data.entrypoint.controller.request.CustomerRequest;
+import com.jfb.digital_banking_data.entrypoint.controller.request.CustomerUpdateRequest;
 import com.jfb.digital_banking_data.entrypoint.controller.response.CustomerResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -63,7 +64,8 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody Customer customer, @PathVariable String id) {
+    public ResponseEntity<Void> update(@RequestBody CustomerUpdateRequest customerUpdateRequest, @PathVariable String id) {
+        Customer customer = mapper.toModelUpdate(customerUpdateRequest);
         updateCustomerUseCase.execute(customer, id);
         return ResponseEntity.noContent().build();
     }

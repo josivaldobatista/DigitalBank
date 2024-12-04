@@ -2,6 +2,7 @@ package com.jfb.digital_banking_gateway.adapters.controllers;
 
 import com.jfb.digital_banking_gateway.adapters.controllers.mapper.CustomerMapper;
 import com.jfb.digital_banking_gateway.adapters.controllers.request.CustomerRequest;
+import com.jfb.digital_banking_gateway.adapters.controllers.request.CustomerUpdateRequest;
 import com.jfb.digital_banking_gateway.adapters.controllers.response.CustomerResponse;
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
 import com.jfb.digital_banking_gateway.core.domain.models.Status;
@@ -82,13 +83,9 @@ class CustomerControllerTest implements AutoCloseable {
     @Test
     void testUpdateCustomer() {
         String customerId = "123";
-        CustomerRequest request = new CustomerRequest(
-                customerId, // ID do cliente
+        CustomerUpdateRequest request = new CustomerUpdateRequest(
                 "John Doe Updated",
-                "john.doe.updated@example.com",
-                LocalDate.of(1990, 1, 1),
-                "12345678900",
-                Status.ATIVO
+                "john.doe.updated@example.com"
         );
 
         ResponseEntity<HttpStatus> response = customerController.update(customerId, request);

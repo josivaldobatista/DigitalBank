@@ -3,6 +3,7 @@ package com.jfb.digital_banking_data.entrypoint.controller.mapper;
 import com.jfb.digital_banking_data.core.domain.Customer;
 import com.jfb.digital_banking_data.dataprovider.repository.entity.CustomerEntity;
 import com.jfb.digital_banking_data.entrypoint.controller.request.CustomerRequest;
+import com.jfb.digital_banking_data.entrypoint.controller.request.CustomerUpdateRequest;
 import com.jfb.digital_banking_data.entrypoint.controller.response.CustomerResponse;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,13 @@ public class CustomerMapper {
                 customer.getBirthDate(),
                 customer.getCpfCnpj(),
                 customer.getStatus()
+        );
+    }
+
+    public Customer toModelUpdate(CustomerUpdateRequest customerUpdateRequest) {
+        return new Customer(
+                customerUpdateRequest.name(),
+                customerUpdateRequest.email()
         );
     }
 }

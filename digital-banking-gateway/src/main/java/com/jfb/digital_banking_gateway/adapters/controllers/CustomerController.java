@@ -2,6 +2,7 @@ package com.jfb.digital_banking_gateway.adapters.controllers;
 
 import com.jfb.digital_banking_gateway.adapters.controllers.mapper.CustomerMapper;
 import com.jfb.digital_banking_gateway.adapters.controllers.request.CustomerRequest;
+import com.jfb.digital_banking_gateway.adapters.controllers.request.CustomerUpdateRequest;
 import com.jfb.digital_banking_gateway.adapters.controllers.response.CustomerResponse;
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
 import com.jfb.digital_banking_gateway.core.usecase.customer.DeleteCustomerUseCase;
@@ -58,8 +59,10 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@PathVariable("id") String id, @Valid @RequestBody CustomerRequest customerRequest) {
-        var customer = mapper.toModel(customerRequest);
+    public ResponseEntity<HttpStatus> update(
+            @PathVariable("id") String id,
+            @Valid @RequestBody CustomerUpdateRequest customerUpdateRequestRequest) {
+        var customer = mapper.toModelUpdate(customerUpdateRequestRequest);
         customer.setId(id); // Setar o ID do cliente a partir do path variable
         updateCustomerUseCase.execute(customer);
         return ResponseEntity.status(HttpStatus.OK).build();
