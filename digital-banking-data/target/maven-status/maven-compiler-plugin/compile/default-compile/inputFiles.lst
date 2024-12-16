@@ -17,6 +17,7 @@ C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\d
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\domain\Status.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\domain\TransactionType.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\exception\InsufficientFundsException.java
+C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\exception\ObjectAlreadyExistsException.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\exception\ResourceNotFoundException.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\usecase\account\DeleteAccountByIdUseCase.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\usecase\account\FindAccountByIdUseCase.java
@@ -42,7 +43,7 @@ C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\d
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\usecase\operation\impl\WithdrawOperationUseCaseImpl.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\usecase\operation\TransferOperationUseCase.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\core\usecase\operation\WithdrawOperationUseCase.java
-C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\dataprovider\account\DeleteAccountByIdImpl.java
+C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\dataprovider\account\DeleteAccountImpl.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\dataprovider\account\FindAccountImpl.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\dataprovider\account\InsertAccountImpl.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\dataprovider\customer\FindCustomerImpl.java
@@ -69,6 +70,7 @@ C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\d
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\controller\mapper\CustomerMapper.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\controller\request\AccountRequest.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\controller\request\CustomerRequest.java
+C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\controller\request\CustomerUpdateRequest.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\controller\request\DepositRequest.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\controller\request\TransferRequest.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\controller\request\WithdrawRequest.java
@@ -76,8 +78,10 @@ C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\d
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\controller\response\CustomerResponse.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\exception\ErrorResponse.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\exception\GlobalExceptionHandler.java
+C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\exception\ValidationException.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\message\KafkaAccountConsumerService.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\message\KafkaCustomerConsumerService.java
+C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\entrypoint\message\KafkaCustomerProducerService.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\utils\Constantes.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\utils\DataInitializer.java
 C:\Users\valdo\Dev\java\DigitalBank\digital-banking-data\src\main\java\com\jfb\digital_banking_data\utils\MaskUtil.java

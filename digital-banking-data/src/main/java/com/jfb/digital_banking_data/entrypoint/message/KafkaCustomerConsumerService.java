@@ -1,12 +1,15 @@
 package com.jfb.digital_banking_data.entrypoint.message;
 
 import com.jfb.digital_banking_data.core.domain.Customer;
+import com.jfb.digital_banking_data.core.exception.ObjectAlreadyExistsException;
 import com.jfb.digital_banking_data.core.usecase.customer.DeleteCustomerUseCase;
 import com.jfb.digital_banking_data.core.usecase.customer.InsertCustomerUseCase;
 import com.jfb.digital_banking_data.core.usecase.customer.UpdateCustomerUseCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import static com.jfb.digital_banking_data.utils.Constantes.*;
@@ -19,24 +22,31 @@ public class KafkaCustomerConsumerService {
     private final InsertCustomerUseCase insertCustomerUseCase;
     private final DeleteCustomerUseCase deleteCustomerUseCase;
     private final UpdateCustomerUseCase updateCustomerUseCase;
+    private final KafkaCustomerProducerService kafkaCustomerProducerService;
 
-    public KafkaCustomerConsumerService(InsertCustomerUseCase insertCustomerUseCase, DeleteCustomerUseCase deleteCustomerUseCase, UpdateCustomerUseCase updateCustomerUseCase) {
+    public KafkaCustomerConsumerService(
+            InsertCustomerUseCase insertCustomerUseCase,
+            DeleteCustomerUseCase deleteCustomerUseCase,
+            UpdateCustomerUseCase updateCustomerUseCase,
+            KafkaCustomerProducerService kafkaCustomerProducerService) {
         this.insertCustomerUseCase = insertCustomerUseCase;
         this.deleteCustomerUseCase = deleteCustomerUseCase;
         this.updateCustomerUseCase = updateCustomerUseCase;
+        this.kafkaCustomerProducerService = kafkaCustomerProducerService;
     }
 
-    @KafkaListener(
-            topics = INSERT_CUSTOMER_KAFKA_TOPIC,
-            groupId = KAFKA_GROUP_ID_OBJECTS,
-            containerFactory = "kafkaListenerContainerFactory")
-    public void consumeInsertCustomer(Customer customer) {
+    @KafkaListener(topics = INSERT_CUSTOMER_KAFKA_TOPIC, groupId = KAFKA_GROUP_ID_OBJECTS, containerFactory = "kafkaListenerContainerFactory")
+    public void consumeInsertCustomer(@Payload Customer customer, Acknowledgment acknowledgment) {
         try {
-            logger.info("Mensagem recebida: {}", customer);
             insertCustomerUseCase.execute(customer);
-            logger.info("Cliente salvo com sucesso: {}", customer);
-        } catch (Exception e) {
-            logger.error("Erro ao processar mensagem: {}", e.getMessage(), e);
+            acknowledgment.acknowledge();
+        } catch (ObjectAlreadyExistsException ex) {
+            // Enviar mensagem de erro ao novo tópico
+            kafkaCustomerProducerService.sendErrorMessage("Customer já existe, CPF/CNPJ: " + customer.getCpfCnpj());
+            acknowledgment.acknowledge();
+        } catch (Exception ex) {
+            System.out.println("Erro inesperado: " + ex.getMessage());
+            acknowledgment.acknowledge();
         }
     }
 
