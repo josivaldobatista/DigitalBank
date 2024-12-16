@@ -10,8 +10,6 @@ public class AccountMapper {
 
     public Account toModel(AccountRequest request) {
         var model = new Account();
-        model.setAccountNumber(request.accountNumber());
-        model.setBranch(request.branch());
         model.setBalance(request.balance());
         model.setCustomerId(request.customerId());
         model.setStatus(request.status());

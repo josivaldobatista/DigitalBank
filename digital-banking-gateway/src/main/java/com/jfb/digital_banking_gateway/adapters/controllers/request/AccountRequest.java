@@ -10,12 +10,6 @@ import java.math.BigDecimal;
 
 public record AccountRequest(
 
-        @NotBlank(message = "Account number is mandatory")
-        String accountNumber,
-
-        @NotBlank(message = "Branch is mandatory")
-        String branch,
-
         @NotNull(message = "Balance is mandatory")
         @DecimalMin(value = "0.0", inclusive = false, message = "Balance must be greater than zero")
         BigDecimal balance,

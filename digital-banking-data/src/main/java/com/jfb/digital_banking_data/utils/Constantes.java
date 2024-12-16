@@ -12,5 +12,6 @@ public final class Constantes {
     public static final String INSERT_CUSTOMER_ERROR_TOPIC = "insert-customer-error-topic";
 
     public static final String KAFKA_GROUP_ID_STRINGS = "digital-banking-group-strings";
+    public static final String BRANCH_NUMBER = "300";
 
 }

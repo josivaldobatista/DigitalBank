@@ -1,9 +1,9 @@
 package com.jfb.digital_banking_data.entrypoint.controller;
 
-import com.jfb.digital_banking_data.core.dataprovider.account.InsertAccount;
 import com.jfb.digital_banking_data.core.domain.Account;
 import com.jfb.digital_banking_data.core.usecase.account.DeleteAccountByIdUseCase;
 import com.jfb.digital_banking_data.core.usecase.account.FindAllAccountUseCase;
+import com.jfb.digital_banking_data.core.usecase.account.InsertAccountUseCase;
 import com.jfb.digital_banking_data.core.usecase.account.impl.FindAccountByIdUseCaseImpl;
 import com.jfb.digital_banking_data.entrypoint.controller.mapper.AccountMapper;
 import com.jfb.digital_banking_data.entrypoint.controller.request.AccountRequest;
@@ -21,18 +21,19 @@ import java.util.stream.Collectors;
 public class AccountController {
 
     private final AccountMapper mapper;
-    private final InsertAccount insertAccount;
+    private final InsertAccountUseCase insertAccountUseCase;
     private final FindAllAccountUseCase findAllAccountUseCase;
     private final FindAccountByIdUseCaseImpl findAccountByIdUseCase;
     private final DeleteAccountByIdUseCase deleteAccountByIdUseCase;
 
     public AccountController(
             AccountMapper mapper,
-            InsertAccount insertAccount,
+            InsertAccountUseCase insertAccountUseCase,
             FindAllAccountUseCase findAllAccountUseCase,
-            FindAccountByIdUseCaseImpl findAccountByIdUseCase, DeleteAccountByIdUseCase deleteAccountByIdUseCase) {
+            FindAccountByIdUseCaseImpl findAccountByIdUseCase,
+            DeleteAccountByIdUseCase deleteAccountByIdUseCase) {
         this.mapper = mapper;
-        this.insertAccount = insertAccount;
+        this.insertAccountUseCase = insertAccountUseCase;
         this.findAllAccountUseCase = findAllAccountUseCase;
         this.findAccountByIdUseCase = findAccountByIdUseCase;
         this.deleteAccountByIdUseCase = deleteAccountByIdUseCase;
@@ -41,7 +42,7 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<HttpStatus> insert(@RequestBody @Valid AccountRequest request) {
         var account = mapper.toDomain(request);
-        insertAccount.insert(account);
+        insertAccountUseCase.execute(account);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

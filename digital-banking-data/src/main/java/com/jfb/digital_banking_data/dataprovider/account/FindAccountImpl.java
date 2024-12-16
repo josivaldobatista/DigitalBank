@@ -35,4 +35,10 @@ public class FindAccountImpl implements FindAccount {
         Optional<AccountEntity> accountEntity = repository.findById(id);
         return accountEntity.map(mapper::toDomain);
     }
+
+    @Override
+    public Optional<Account> findByCpfCnpj(String cpfCnpj) {
+        Optional<AccountEntity> accountEntity = repository.findByCpfCnpj(cpfCnpj);
+        return accountEntity.map(mapper::toDomain);
+    }
 }

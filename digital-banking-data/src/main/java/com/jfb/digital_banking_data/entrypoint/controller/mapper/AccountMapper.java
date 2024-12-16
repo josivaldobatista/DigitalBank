@@ -12,9 +12,7 @@ public class AccountMapper {
         var account = new Account();
         account.setId(request.id());
         account.setCustomerId(request.customerId());
-        account.setAccountNumber(request.accountNumber());
         account.setBalance(request.balance());
-        account.setBranch(request.branch());
         account.setStatus(request.status());
         account.setCpfCnpj(request.cpfCnpj());
         return account;

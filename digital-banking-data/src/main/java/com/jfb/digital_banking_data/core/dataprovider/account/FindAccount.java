@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface FindAccount {
     List<Account> findAll();
     Optional<Account> findById(final String id);
+    Optional<Account> findByCpfCnpj(String cpfCnpj);
 }
