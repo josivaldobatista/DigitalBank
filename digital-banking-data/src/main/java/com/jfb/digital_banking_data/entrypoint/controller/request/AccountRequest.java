@@ -20,7 +20,6 @@ public record AccountRequest(
         @DecimalMin(value = "0.0", inclusive = false, message = "Balance must be greater than zero")
         BigDecimal balance,
 
-        @NotBlank(message = "Customer ID is mandatory")
         String customerId,
 
         @NotNull(message = "Status is mandatory")

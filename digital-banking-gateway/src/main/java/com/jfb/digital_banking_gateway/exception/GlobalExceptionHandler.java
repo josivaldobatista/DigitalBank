@@ -1,5 +1,7 @@
 package com.jfb.digital_banking_gateway.exception;
 
+import com.jfb.digital_banking_gateway.adapters.exceptions.CustomException;
+import com.jfb.digital_banking_gateway.adapters.exceptions.ObjectAlreadyExistsException;
 import com.jfb.digital_banking_gateway.adapters.exceptions.ValidationException;
 import com.jfb.digital_banking_gateway.core.usecase.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,6 +52,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
+    @ExceptionHandler(ObjectAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> objectAlreadyExistsException(ObjectAlreadyExistsException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ErrorResponse error = new ErrorResponse();
+        error.setTimestamp(Instant.now());
+        error.setStatus(status.value());
+        error.setError("Conflito de recurso.");
+        error.setMessage(ex.getMessage());
+        error.setPath(request.getRequestURI());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(ValidationException ex, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
@@ -63,4 +78,18 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(status).body(error);
     }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ErrorResponse error = new ErrorResponse();
+        error.setTimestamp(Instant.now());
+        error.setStatus(status.value());
+        error.setError("Conflito de recurso.");
+        error.setPath(request.getRequestURI());
+        error.setMessage(ex.getErrorMessage());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
 }
