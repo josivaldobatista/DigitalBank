@@ -29,14 +29,16 @@ public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
 
         kafkaProducerService.sendMessage(INSERT_CUSTOMER_KAFKA_TOPIC, customer);
         logger.info("Send message to insert Customer: {}", customer);
-
-        // Espera ativa por até 5 segundos para a mensagem de erro ser processada
-        waitForErrorMessage();
-    }
-
-    private static void waitForErrorMessage() {
+        /*
+         * Espera ativa por até 300ms segundos para a mensagem de erro ser processada.
+         *
+         * Não consegui implementar uma solução que não precise dessa espera ativa pela resposta do Kafka.
+         * A mensagem de erro vem de outro microserviço, e vou pesquisar uma solução melhor para isso no futuro.
+         * Por enquanto, esta abordagem é suficiente. Ajuste a duração da espera conforme necessário.
+         * No meu caso, 300ms foram suficientes.
+         */
         long start = System.currentTimeMillis();
-        while (System.currentTimeMillis() - start < 5000) {
+        while (System.currentTimeMillis() - start < 300) { // <- aqui
             if (ErrorMessageHolder.getErrorMessage() != null) {
                 throw new CustomException(ErrorMessageHolder.getErrorMessage());
             }
