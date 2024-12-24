@@ -24,6 +24,9 @@ public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
 
     @Override
     public void execute(Customer customer) {
+        // Limpar mensagem de erro antes de iniciar a operação
+        ErrorMessageHolder.setErrorMessage(null);
+
         kafkaProducerService.sendMessage(INSERT_CUSTOMER_KAFKA_TOPIC, customer);
         logger.info("Send message to insert Customer: {}", customer);
 
