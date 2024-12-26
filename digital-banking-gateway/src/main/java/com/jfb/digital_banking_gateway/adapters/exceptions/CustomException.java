@@ -13,4 +13,3 @@ public class CustomException extends RuntimeException {
         return errorMessage;
     }
 }
-
