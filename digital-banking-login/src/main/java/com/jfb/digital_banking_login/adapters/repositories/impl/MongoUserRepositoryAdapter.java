@@ -15,7 +15,10 @@ public class MongoUserRepositoryAdapter implements UserRepositoryPort {
     private MongoUserRepository mongoUserRepository;
 
     @Override
-    public Optional<User> loadUserByUsername(String username) {
-        return mongoUserRepository.findByUsername(username);
+    public Optional<User> loadUserByUsername(String identifier) {
+        return mongoUserRepository.findByUsername(identifier)
+                .or(() -> mongoUserRepository.findByEmail(identifier))
+                .or(() -> mongoUserRepository.findByCpfCnpj(identifier));
     }
 }
+
