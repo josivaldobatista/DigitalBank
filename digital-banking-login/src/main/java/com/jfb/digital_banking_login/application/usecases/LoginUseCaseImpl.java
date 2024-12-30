@@ -5,6 +5,8 @@ import com.jfb.digital_banking_login.adapters.controllers.response.LoginResponse
 import com.jfb.digital_banking_login.adapters.securities.JwtTokenProvider;
 import com.jfb.digital_banking_login.application.ports.in.LoginUseCase;
 import com.jfb.digital_banking_login.application.ports.out.UserRepositoryPort;
+import com.jfb.digital_banking_login.domains.exceptions.InvalidCredentialsException;
+import com.jfb.digital_banking_login.domains.exceptions.InvalidIdentifierException;
 import com.jfb.digital_banking_login.domains.exceptions.UserNotFoundException;
 import com.jfb.digital_banking_login.domains.models.User;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,23 +26,31 @@ public class LoginUseCaseImpl implements LoginUseCase {
     private final UserRepositoryPort userRepositoryPort;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
     public LoginUseCaseImpl(
             UserRepositoryPort userRepositoryPort,
             AuthenticationManager authenticationManager,
-            JwtTokenProvider jwtTokenProvider) {
+            JwtTokenProvider jwtTokenProvider,
+            PasswordEncoder passwordEncoder) {
         this.userRepositoryPort = userRepositoryPort;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public LoginResponse execute(LoginRequest loginRequest) {
+    public LoginResponse execute(LoginRequest loginRequest) throws InvalidIdentifierException {
         validateLoginRequest(loginRequest);
         logger.info("Iniciando o processo de autenticação.");
 
         String identifier = extractIdentifier(loginRequest);
         User user = findUserByIdentifier(identifier);
+
+        if (!passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
+            logger.error("Senha incorreta para o usuário: {}", identifier);
+            throw new InvalidCredentialsException("Usuário ou Senha incorretos, verifique e tente novamente.");
+        }
 
         authenticateUser(identifier, loginRequest.password());
         String token = generateToken(user);
@@ -55,14 +66,14 @@ public class LoginUseCaseImpl implements LoginUseCase {
         }
     }
 
-    private String extractIdentifier(LoginRequest loginRequest) {
+    private String extractIdentifier(LoginRequest loginRequest) throws InvalidIdentifierException {
         String identifier = loginRequest.username() != null ? loginRequest.username() :
                 loginRequest.email() != null ? loginRequest.email() :
                         loginRequest.cpfCnpj();
 
         if (identifier == null) {
             logger.error("Nenhum identificador válido foi fornecido. É necessário informar username, email ou CPF.");
-            throw new IllegalArgumentException("Um identificador (username, email ou cpf) deve ser fornecido.");
+            throw new InvalidIdentifierException("Um identificador (username, email ou cpf) deve ser fornecido.");
         }
 
         logger.debug("Identificador fornecido: {}", identifier);
