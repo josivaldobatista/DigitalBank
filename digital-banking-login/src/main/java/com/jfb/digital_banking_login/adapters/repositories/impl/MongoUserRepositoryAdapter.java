@@ -20,5 +20,10 @@ public class MongoUserRepositoryAdapter implements UserRepositoryPort {
                 .or(() -> mongoUserRepository.findByEmail(identifier))
                 .or(() -> mongoUserRepository.findByCpfCnpj(identifier));
     }
+
+    @Override
+    public User save(User user) {
+        return mongoUserRepository.save(user);
+    }
 }
 

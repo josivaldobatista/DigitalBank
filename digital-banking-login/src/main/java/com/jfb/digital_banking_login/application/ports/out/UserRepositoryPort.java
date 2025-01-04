@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface UserRepositoryPort {
 
     Optional<User> loadUserByUsername(String username);
+    User save(User user);
 }

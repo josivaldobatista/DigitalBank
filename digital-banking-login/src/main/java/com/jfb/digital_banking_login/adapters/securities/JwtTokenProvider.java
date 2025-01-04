@@ -25,7 +25,9 @@ public class JwtTokenProvider {
 
     public String createToken(String username) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
+
+        List<String> roles = Arrays.asList("ROLE_USER"); // ou obter as roles do usuário
+        claims.put("roles", roles);
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
@@ -51,7 +53,9 @@ public class JwtTokenProvider {
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
-        List<String> roles = (List<String>) claims.get("roles");
+        List<String> roles = ((List<?>) claims.get("roles")).stream()
+                .map(role -> (String) role)
+                .collect(Collectors.toList());
         return roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
