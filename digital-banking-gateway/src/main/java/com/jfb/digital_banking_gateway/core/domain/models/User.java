@@ -17,7 +17,25 @@ public class User implements UserDetails {
     private String id;
     private String username;
     private String password;
+    private String cpfCnpj;
+    private String email;
     private List<String> roles;
+
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public void setUsername(String username) {
         this.username = username;

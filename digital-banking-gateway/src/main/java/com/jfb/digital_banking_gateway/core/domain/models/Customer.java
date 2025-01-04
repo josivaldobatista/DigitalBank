@@ -1,8 +1,5 @@
 package com.jfb.digital_banking_gateway.core.domain.models;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;

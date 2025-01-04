@@ -1,7 +1,6 @@
 package com.jfb.digital_banking_gateway.adapters.messaging;
 
 import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;

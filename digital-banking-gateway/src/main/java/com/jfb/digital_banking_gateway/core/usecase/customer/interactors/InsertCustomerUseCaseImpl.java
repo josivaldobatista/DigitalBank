@@ -5,6 +5,7 @@ import com.jfb.digital_banking_gateway.adapters.exceptions.ErrorMessageHolder;
 import com.jfb.digital_banking_gateway.adapters.messaging.KafkaErrorConsumerService;
 import com.jfb.digital_banking_gateway.adapters.messaging.KafkaProducerService;
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
+import com.jfb.digital_banking_gateway.core.domain.models.User;
 import com.jfb.digital_banking_gateway.core.usecase.customer.InsertCustomerUseCase;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -12,10 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.jfb.digital_banking_gateway.utils.Constantes.INSERT_CUSTOMER_KAFKA_TOPIC;
+import static com.jfb.digital_banking_gateway.utils.Constantes.INSERT_USER_KAFKA_TOPIC;
 
 @Service
 public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
@@ -39,6 +42,31 @@ public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
         kafkaProducerService.sendMessage(
                 INSERT_CUSTOMER_KAFKA_TOPIC,
                 customer,
+                new Callback() {
+                    @Override
+                    public void onCompletion(RecordMetadata metadata, Exception exception) {
+                        if (exception != null) {
+                            logger.error("Erro ao enviar mensagem para o Kafka", exception);
+                            // Armazena a mensagem de erro no ErrorMessageHolder
+                            ErrorMessageHolder.setErrorMessage(exception.getMessage());
+                            kafkaErrorConsumerService.getLatch().countDown(); // Garante que o latch seja liberado em caso de erro
+                        } else {
+                            logger.info("Mensagem enviada com sucesso para o Kafka. Metadata: {}", metadata);
+                        }
+                    }
+                }
+        );
+
+        var user = new User();
+        user.setUsername(customer.getName());
+        user.setEmail(customer.getEmail());
+        user.setCpfCnpj(customer.getCpfCnpj());
+        user.setPassword("senha432");
+        user.setRoles(List.of("ROLE_USER"));
+
+        kafkaProducerService.sendMessage(
+                INSERT_USER_KAFKA_TOPIC,
+                user,
                 new Callback() {
                     @Override
                     public void onCompletion(RecordMetadata metadata, Exception exception) {
