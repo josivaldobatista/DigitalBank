@@ -8,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
@@ -20,6 +25,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     @Override
     public void execute(CreateUserRequest request) {
         // 1. Validar os dados da requisição (implementar validações)
+
         // 2. Criptografar a senha
         String encodedPassword = passwordEncoder.encode(request.password());
 
@@ -29,7 +35,16 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         user.setEmail(request.email());
         user.setCpfCnpj(request.cpfCnpj());
         user.setPassword(encodedPassword);
-        user.setRoles(request.roles());
+
+        // Ajustar a lógica para as roles (utilizando Set para evitar duplicatas)
+        Set<String> roles = new HashSet<>();
+        roles.add("ROLE_USER"); // Adicionar ROLE_USER como padrão
+
+        if (request.roles() != null) {
+            roles.addAll(request.roles()); // Adicionar todas as roles da requisição
+        }
+
+        user.setRoles(new ArrayList<>(roles)); // Converter Set para List
 
         // 4. Salvar o usuário no banco de dados
         userRepositoryPort.save(user);
