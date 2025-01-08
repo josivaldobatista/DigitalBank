@@ -7,15 +7,17 @@ import com.jfb.digital_banking_gateway.adapters.messaging.KafkaProducerService;
 import com.jfb.digital_banking_gateway.core.domain.models.Customer;
 import com.jfb.digital_banking_gateway.core.domain.models.User;
 import com.jfb.digital_banking_gateway.core.usecase.customer.InsertCustomerUseCase;
-import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static com.jfb.digital_banking_gateway.utils.Constantes.INSERT_CUSTOMER_KAFKA_TOPIC;
 import static com.jfb.digital_banking_gateway.utils.Constantes.INSERT_USER_KAFKA_TOPIC;
@@ -24,77 +26,73 @@ import static com.jfb.digital_banking_gateway.utils.Constantes.INSERT_USER_KAFKA
 public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
 
     private static final Logger logger = LoggerFactory.getLogger(InsertCustomerUseCaseImpl.class);
+    private static final String ROLE_USER = "ROLE_USER";
+
+    @Value("${kafka.timeout.ms:300}")
+    private long kafkaTimeoutMs;
 
     private final KafkaProducerService kafkaProducerService;
-    private final KafkaErrorConsumerService kafkaErrorConsumerService;
 
-    public InsertCustomerUseCaseImpl(KafkaProducerService kafkaProducerService, KafkaErrorConsumerService kafkaErrorConsumerService) {
+    public InsertCustomerUseCaseImpl(KafkaProducerService kafkaProducerService) {
         this.kafkaProducerService = kafkaProducerService;
-        this.kafkaErrorConsumerService = kafkaErrorConsumerService;
     }
 
     @Override
     public void execute(Customer customer) {
-        // Limpar mensagem de erro antes de iniciar a operação
-        ErrorMessageHolder.clear();
-        kafkaErrorConsumerService.resetLatch();
+        validateCustomer(customer);
 
-        kafkaProducerService.sendMessage(
-                INSERT_CUSTOMER_KAFKA_TOPIC,
-                customer,
-                new Callback() {
-                    @Override
-                    public void onCompletion(RecordMetadata metadata, Exception exception) {
-                        if (exception != null) {
-                            logger.error("Erro ao enviar mensagem para o Kafka", exception);
-                            // Armazena a mensagem de erro no ErrorMessageHolder
-                            ErrorMessageHolder.setErrorMessage(exception.getMessage());
-                            kafkaErrorConsumerService.getLatch().countDown(); // Garante que o latch seja liberado em caso de erro
-                        } else {
-                            logger.info("Mensagem enviada com sucesso para o Kafka. Metadata: {}", metadata);
-                        }
-                    }
-                }
-        );
+        CompletableFuture<Void> customerFuture = sendMessageWithTimeout(INSERT_CUSTOMER_KAFKA_TOPIC, customer);
+        CompletableFuture<Void> userFuture = sendMessageWithTimeout(INSERT_USER_KAFKA_TOPIC, createUserFromCustomer(customer, "password"));
 
-        var user = new User();
+        waitForResponse(customerFuture);
+        waitForResponse(userFuture);
+
+        logger.info("Solicitação de inserção de cliente enviada: {}", customer);
+    }
+
+    private void validateCustomer(Customer customer) {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer não pode ser nulo");
+        }
+        if (customer.getName() == null || customer.getEmail() == null || customer.getCpfCnpj() == null) {
+            throw new IllegalArgumentException("Campos obrigatórios do Customer não podem ser nulos");
+        }
+    }
+
+    private CompletableFuture<Void> sendMessageWithTimeout(String topic, Object message) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+
+        kafkaProducerService.sendMessage(topic, message, (metadata, exception) -> {
+            if (exception != null) {
+                future.completeExceptionally(exception);
+            } else {
+                future.complete(null);
+            }
+        });
+
+        return future;
+    }
+
+    private void waitForResponse(CompletableFuture<Void> future) {
+        try {
+            future.get(kafkaTimeoutMs, TimeUnit.MILLISECONDS);
+        } catch (TimeoutException e) {
+            throw new CustomException("Timeout ao enviar mensagem para o Kafka" + e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Operação interrompida", e);
+        } catch (ExecutionException e) {
+            throw new CustomException("Erro ao enviar mensagem para o Kafka" + e.getCause());
+        }
+    }
+
+    private User createUserFromCustomer(Customer customer, String password) {
+        User user = new User();
         user.setUsername(customer.getName());
         user.setEmail(customer.getEmail());
         user.setCpfCnpj(customer.getCpfCnpj());
-        user.setPassword("senha432");
-        user.setRoles(List.of("ROLE_USER"));
-
-        kafkaProducerService.sendMessage(
-                INSERT_USER_KAFKA_TOPIC,
-                user,
-                new Callback() {
-                    @Override
-                    public void onCompletion(RecordMetadata metadata, Exception exception) {
-                        if (exception != null) {
-                            logger.error("Erro ao enviar mensagem para o Kafka", exception);
-                            // Armazena a mensagem de erro no ErrorMessageHolder
-                            ErrorMessageHolder.setErrorMessage(exception.getMessage());
-                            kafkaErrorConsumerService.getLatch().countDown(); // Garante que o latch seja liberado em caso de erro
-                        } else {
-                            logger.info("Mensagem enviada com sucesso para o Kafka. Metadata: {}", metadata);
-                        }
-                    }
-                }
-        );
-
-        try {
-            // Aguarda até 300ms para que a mensagem de erro seja consumida
-            kafkaErrorConsumerService.getLatch().await(300, TimeUnit.MILLISECONDS);
-            // Verifica se houve erro e lança exceção se necessário
-            String errorMessage = ErrorMessageHolder.getErrorMessage();
-            if (errorMessage != null) {
-                throw new CustomException("Erro ao inserir cliente: " + errorMessage);
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException("Erro ao esperar a resposta do Kafka", e);
-        }
-
-        logger.info("Solicitação de inserção de cliente enviada: {}", customer);
+        user.setPassword(password);
+        user.setRoles(List.of(ROLE_USER));
+        return user;
     }
 }
