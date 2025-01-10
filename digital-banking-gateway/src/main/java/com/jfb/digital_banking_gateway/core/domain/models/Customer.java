@@ -12,6 +12,8 @@ public class Customer implements Serializable {
     private String id;
     private String name;
     private String email;
+    private String username;
+    private String password;
     private LocalDate birthDate;
     private String cpfCnpj;
     private Status status;
@@ -19,10 +21,11 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
-    public Customer(String id, String name, String email, LocalDate birthDate, String cpfCnpj, Status status) {
-        this.id = id;
+    public Customer(String id, String name, String email, String username, String password, LocalDate birthDate, String cpfCnpj, Status status) {
         this.name = name;
         this.email = email;
+        this.username = username;
+        this.password = password;
         this.birthDate = birthDate;
         this.cpfCnpj = cpfCnpj;
         this.status = status;
@@ -33,8 +36,17 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    public String getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", birthDate=" + birthDate +
+                ", cpfCnpj='" + cpfCnpj + '\'' +
+                ", status=" + status +
+                '}';
     }
 
     public void setId(String id) {
@@ -55,6 +67,22 @@ public class Customer implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LocalDate getBirthDate() {
@@ -82,27 +110,15 @@ public class Customer implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Customer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", birthDate=" + birthDate +
-                ", cpfCnpj='" + cpfCnpj + '\'' +
-                ", status=" + status +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(birthDate, customer.birthDate) && Objects.equals(cpfCnpj, customer.cpfCnpj) && status == customer.status;
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(username, customer.username) && Objects.equals(password, customer.password) && Objects.equals(birthDate, customer.birthDate) && Objects.equals(cpfCnpj, customer.cpfCnpj) && status == customer.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, birthDate, cpfCnpj, status);
+        return Objects.hash(id, name, email, username, password, birthDate, cpfCnpj, status);
     }
 }
 

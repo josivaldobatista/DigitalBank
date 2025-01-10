@@ -16,6 +16,9 @@ public record CustomerRequest(
         @NotBlank(message = "Email é obrigatório.")
         String email,
 
+        String username,
+        String password,
+
         @NotNull(message = "Data de nascimento é obrigatória.")
         LocalDate birthDate,
 
@@ -24,5 +27,6 @@ public record CustomerRequest(
 
         @NotNull(message = "Status é obrigatório.")
         Status status
+
 ) {}
 

@@ -23,6 +23,8 @@ public class CustomerEntity {
     private String name;
     @Field("email")
     private String email;
+    private String username;
+    private String password;
     @Field("birth_date")
     private LocalDate birthDate;
     @Field("cpf_cnpj")

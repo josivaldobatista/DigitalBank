@@ -9,9 +9,10 @@ public class CustomerEntityMapper {
 
     public CustomerEntity toEntity(Customer customer) {
         CustomerEntity entity = new CustomerEntity();
-        entity.setId(customer.getId());
         entity.setName(customer.getName());
         entity.setEmail(customer.getEmail());
+        entity.setUsername(customer.getUsername());
+        entity.setPassword(customer.getPassword());
         entity.setBirthDate(customer.getBirthDate());
         entity.setCpfCnpj(customer.getCpfCnpj());
         entity.setStatus(customer.getStatus());
@@ -20,9 +21,10 @@ public class CustomerEntityMapper {
 
     public Customer toCustomer(CustomerEntity entity) {
         Customer customer = new Customer();
-        customer.setId(entity.getId());
         customer.setName(entity.getName());
         customer.setEmail(entity.getEmail());
+        customer.setUsername(entity.getUsername());
+        customer.setPassword(entity.getPassword());
         customer.setBirthDate(entity.getBirthDate());
         customer.setCpfCnpj(entity.getCpfCnpj());
         customer.setStatus(entity.getStatus());

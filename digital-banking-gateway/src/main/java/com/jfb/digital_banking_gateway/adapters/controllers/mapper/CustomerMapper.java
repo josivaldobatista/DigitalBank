@@ -14,6 +14,8 @@ public class CustomerMapper {
                 request.id(),
                 request.name(),
                 request.email(),
+                request.username(),
+                request.password(),
                 request.birthDate(),
                 request.cpfCnpj(),
                 request.status()

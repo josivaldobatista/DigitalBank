@@ -14,6 +14,8 @@ public class CustomerMapper {
         Customer customer = new Customer();
         customer.setName(request.name());
         customer.setEmail(request.email());
+        customer.setUsername(request.username());
+        customer.setPassword(request.password());
         customer.setBirthDate(request.birthDate());
         customer.setCpfCnpj(request.cpfCnpj());
         customer.setStatus(request.status());
@@ -25,6 +27,7 @@ public class CustomerMapper {
         return new CustomerResponse(
                 customer.getName(),
                 customer.getEmail(),
+                customer.getUsername(),
                 customer.getBirthDate(),
                 customer.getCpfCnpj(),
                 customer.getStatus()

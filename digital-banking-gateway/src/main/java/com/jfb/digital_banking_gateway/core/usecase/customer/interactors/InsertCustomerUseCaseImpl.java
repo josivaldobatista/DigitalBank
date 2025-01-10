@@ -42,7 +42,7 @@ public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
         validateCustomer(customer);
 
         CompletableFuture<Void> customerFuture = sendMessageWithTimeout(INSERT_CUSTOMER_KAFKA_TOPIC, customer);
-        CompletableFuture<Void> userFuture = sendMessageWithTimeout(INSERT_USER_KAFKA_TOPIC, createUserFromCustomer(customer, "password"));
+        CompletableFuture<Void> userFuture = sendMessageWithTimeout(INSERT_USER_KAFKA_TOPIC, createUserFromCustomer(customer));
 
         waitForResponse(customerFuture);
         waitForResponse(userFuture);
@@ -86,12 +86,13 @@ public class InsertCustomerUseCaseImpl implements InsertCustomerUseCase {
         }
     }
 
-    private User createUserFromCustomer(Customer customer, String password) {
+    private User createUserFromCustomer(Customer customer) {
         User user = new User();
         user.setUsername(customer.getName());
         user.setEmail(customer.getEmail());
+        user.setUsername(customer.getUsername());
+        user.setPassword(customer.getPassword());
         user.setCpfCnpj(customer.getCpfCnpj());
-        user.setPassword(password);
         user.setRoles(List.of(ROLE_USER));
         return user;
     }
