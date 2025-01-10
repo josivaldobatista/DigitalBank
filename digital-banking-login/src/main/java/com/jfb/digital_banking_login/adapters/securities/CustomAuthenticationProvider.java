@@ -1,5 +1,7 @@
 package com.jfb.digital_banking_login.adapters.securities;
 
+import com.jfb.digital_banking_login.adapters.repositories.entity.UserEntity;
+import com.jfb.digital_banking_login.adapters.repositories.mapper.UserMapper;
 import com.jfb.digital_banking_login.domains.models.User;
 import com.jfb.digital_banking_login.application.ports.out.UserRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        User user = userRepositoryPort.loadUserByUsername(username)
+        UserEntity userEntity = userRepositoryPort.loadUserByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException("User not found"));
 
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        User userModel = UserMapper.toModel(userEntity);
+
+        if (!passwordEncoder.matches(password, userModel.getPassword())) {
             throw new BadCredentialsException("Invalid credentials");
         }
 
-        return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(username, password, userModel.getAuthorities());
     }
 
     @Override

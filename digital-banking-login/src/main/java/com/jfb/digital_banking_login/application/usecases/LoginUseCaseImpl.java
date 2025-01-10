@@ -2,6 +2,7 @@ package com.jfb.digital_banking_login.application.usecases;
 
 import com.jfb.digital_banking_login.adapters.controllers.request.LoginRequest;
 import com.jfb.digital_banking_login.adapters.controllers.response.LoginResponse;
+import com.jfb.digital_banking_login.adapters.repositories.entity.UserEntity;
 import com.jfb.digital_banking_login.adapters.securities.JwtTokenProvider;
 import com.jfb.digital_banking_login.application.ports.in.LoginUseCase;
 import com.jfb.digital_banking_login.application.ports.out.UserRepositoryPort;
@@ -45,17 +46,17 @@ public class LoginUseCaseImpl implements LoginUseCase {
         logger.info("Iniciando o processo de autenticação.");
 
         String identifier = extractIdentifier(loginRequest);
-        User user = findUserByIdentifier(identifier);
+        UserEntity userEntity = findUserByIdentifier(identifier);
 
-        if (!passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
+        if (!passwordEncoder.matches(loginRequest.password(), userEntity.getPassword())) {
             logger.error("Senha incorreta para o usuário: {}", identifier);
             throw new InvalidCredentialsException("Usuário ou Senha incorretos, verifique e tente novamente.");
         }
 
         authenticateUser(identifier, loginRequest.password());
-        String token = generateToken(user);
+        String token = generateToken(userEntity);
 
-        logger.info("Login realizado com sucesso para o usuário: {}", user.getUsername());
+        logger.info("Login realizado com sucesso para o usuário: {}", userEntity.getUsername());
         return new LoginResponse(token);
     }
 
@@ -80,7 +81,7 @@ public class LoginUseCaseImpl implements LoginUseCase {
         return identifier;
     }
 
-    private User findUserByIdentifier(String identifier) {
+    private UserEntity findUserByIdentifier(String identifier) {
         return userRepositoryPort.loadUserByUsername(identifier)
                 .orElseThrow(() -> {
                     logger.warn("Usuário não encontrado para o identificador: {}", identifier);
@@ -106,9 +107,9 @@ public class LoginUseCaseImpl implements LoginUseCase {
         }
     }
 
-    private String generateToken(User user) {
-        String token = jwtTokenProvider.createToken(user.getUsername());
-        logger.debug("Token JWT gerado com sucesso para o usuário: {}", user.getUsername());
+    private String generateToken(UserEntity userEntity) {
+        String token = jwtTokenProvider.createToken(userEntity.getUsername());
+        logger.debug("Token JWT gerado com sucesso para o usuário: {}", userEntity.getUsername());
         return token;
     }
 }

@@ -1,5 +1,6 @@
 package com.jfb.digital_banking_login.application.usecases;
 
+import com.jfb.digital_banking_login.adapters.repositories.entity.UserEntity;
 import com.jfb.digital_banking_login.application.ports.in.CreateUserUseCase;
 import com.jfb.digital_banking_login.application.ports.out.UserRepositoryPort;
 import com.jfb.digital_banking_login.adapters.controllers.request.CreateUserRequest;
@@ -30,11 +31,11 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         String encodedPassword = passwordEncoder.encode(request.password());
 
         // 3. Criar o objeto User
-        User user = new User();
-        user.setUsername(request.username());
-        user.setEmail(request.email());
-        user.setCpfCnpj(request.cpfCnpj());
-        user.setPassword(encodedPassword);
+        var userEntity = new UserEntity();
+        userEntity.setUsername(request.username());
+        userEntity.setEmail(request.email());
+        userEntity.setCpfCnpj(request.cpfCnpj());
+        userEntity.setPassword(encodedPassword);
 
         // Ajustar a lógica para as roles (utilizando Set para evitar duplicatas)
         Set<String> roles = new HashSet<>();
@@ -44,9 +45,10 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
             roles.addAll(request.roles()); // Adicionar todas as roles da requisição
         }
 
-        user.setRoles(new ArrayList<>(roles)); // Converter Set para List
+        userEntity.setRoles(new ArrayList<>(roles)); // Converter Set para List
 
         // 4. Salvar o usuário no banco de dados
-        userRepositoryPort.save(user);
+        userRepositoryPort.save(userEntity);
     }
+
 }

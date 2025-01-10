@@ -1,5 +1,6 @@
 package com.jfb.digital_banking_login;
 
+import com.jfb.digital_banking_login.adapters.repositories.entity.UserEntity;
 import com.jfb.digital_banking_login.domains.models.User;
 import com.jfb.digital_banking_login.adapters.repositories.MongoUserRepository;
 import com.jfb.digital_banking_login.utils.UserCreator;
@@ -27,14 +28,14 @@ public class DigitalBankingLoginApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Verificar se os usuários já existem
-        Optional<User> existingUser1 = userRepository.findByUsername("user1");
-        Optional<User> existingAdmin = userRepository.findByUsername("admin");
+        Optional<UserEntity> existingUserEntity1 = userRepository.findByUsername("user1");
+        Optional<UserEntity> existingAdminEntity = userRepository.findByUsername("admin");
 
-        if (existingUser1.isEmpty() && existingAdmin.isEmpty()) {
+        if (existingUserEntity1.isEmpty() && existingAdminEntity.isEmpty()) {
             // Criação de usuários fictícios
-            User user1 = UserCreator.createUser("user1", "user1@example.com", "12345678901", "password1");
-            User user2 = UserCreator.createUser("user2", "user2@example.com", "12345678902", "password2");
-            User admin = UserCreator.createAdminUser("admin", "admin@example.com", "12345678903", "admin");
+            UserEntity user1 = UserCreator.createUser("user1", "user1@example.com", "12345678901", "password1");
+            UserEntity user2 = UserCreator.createUser("user2", "user2@example.com", "12345678902", "password2");
+            UserEntity admin = UserCreator.createAdminUser("admin", "admin@example.com", "12345678903", "admin");
 
             // Salvando usuários no repositório
             userRepository.save(user1);
