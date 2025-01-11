@@ -12,7 +12,6 @@ public class CustomerEntityMapper {
         entity.setName(customer.getName());
         entity.setEmail(customer.getEmail());
         entity.setUsername(customer.getUsername());
-        entity.setPassword(customer.getPassword());
         entity.setBirthDate(customer.getBirthDate());
         entity.setCpfCnpj(customer.getCpfCnpj());
         entity.setStatus(customer.getStatus());
@@ -24,7 +23,6 @@ public class CustomerEntityMapper {
         customer.setName(entity.getName());
         customer.setEmail(entity.getEmail());
         customer.setUsername(entity.getUsername());
-        customer.setPassword(entity.getPassword());
         customer.setBirthDate(entity.getBirthDate());
         customer.setCpfCnpj(entity.getCpfCnpj());
         customer.setStatus(entity.getStatus());
