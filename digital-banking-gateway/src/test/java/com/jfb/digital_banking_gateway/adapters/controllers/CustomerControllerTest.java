@@ -59,6 +59,8 @@ class CustomerControllerTest implements AutoCloseable {
                 null, // ID nulo para inserção
                 "John Doe",
                 "john.doe@example.com",
+                "john.doe.username", // username incluído
+                "securePassword123", // password incluído
                 LocalDate.of(1990, 1, 1),
                 "12345678900",
                 Status.ATIVO
@@ -97,9 +99,11 @@ class CustomerControllerTest implements AutoCloseable {
     @Test
     void testFindAllCustomers() {
         Customer customer = new Customer(
-                "123",
+                "123", // ID
                 "John Doe",
                 "john.doe@example.com",
+                "john.doe.username", // username
+                "securePassword123", // password
                 LocalDate.of(1990, 1, 1),
                 "12345678900",
                 Status.ATIVO
@@ -120,13 +124,17 @@ class CustomerControllerTest implements AutoCloseable {
     @Test
     void testFindCustomerById() {
         Customer customer = new Customer(
-                "123",
+                "123", // ID
                 "John Doe",
                 "john.doe@example.com",
+                "john.doe.username", // username
+                "securePassword123", // password
                 LocalDate.of(1990, 1, 1),
                 "12345678900",
                 Status.ATIVO
         );
+
+        // String number, String johnDoe, String mail, LocalDate of, String number1, Status status)
 
         when(findCustomerByIdUseCase.findById("123")).thenReturn(Optional.of(customer));
 
