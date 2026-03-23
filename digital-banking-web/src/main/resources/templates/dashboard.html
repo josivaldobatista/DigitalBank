@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Digital Bank</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="header">
+    <h2>🏦 Digital Bank</h2>
+</header>
+
+<main class="container">
+
+    <h1>Bem vindo, usuário</h1>
+
+    <!-- SALDO -->
+    <div class="card saldo">
+        <h3>Saldo disponível</h3>
+        <p class="valor">R$ 5.000,00</p> <!-- depois vamos deixar dinâmico -->
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="actions">
+        <a href="#" class="btn">Depositar</a>
+        <a href="#" class="btn">Sacar</a>
+        <a href="#" class="btn">Transferir</a>
+    </div>
+
+    <!-- EXTRATO -->
+    <div class="extrato">
+        <a href="#" class="btn secondary">Ver Extrato</a>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 Digital Bank</p>
+</footer>
+
+</body>
+</html>

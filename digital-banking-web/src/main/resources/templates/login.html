@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Digital Bank</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="header">
+    <h2>🏦 Digital Bank</h2>
+</header>
+
+<main class="container">
+
+    <div class="login-box">
+        <h1>Login</h1>
+
+        <form method="post" action="/login">
+            <input type="text" name="username" placeholder="Usuário" required>
+            <input type="password" name="password" placeholder="Senha" required>
+
+            <p th:if="${param.error}" style="color:red;">
+                Usuário ou senha inválidos
+            </p>
+
+            <button type="submit" class="btn">Entrar</button>
+        </form>
+
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 Digital Bank</p>
+</footer>
+
+</body>
+</html>

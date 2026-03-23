@@ -28,6 +28,8 @@ public class KafkaAccountConsumerConfig {
         configProps.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class.getName());
         configProps.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.jfb.digital_banking_data.core.domain.Account");
         configProps.put(JsonDeserializer.TRUSTED_PACKAGES, "com.jfb.digital_banking_data.core.domain");
+        configProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        configProps.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
         return new DefaultKafkaConsumerFactory<>(configProps);
     }
 
